@@ -18,7 +18,7 @@ public abstract class MoveableObject extends GameObject implements IMove {
 	public MoveableObject()	{
 		
 		final int MAX_SPEED = 21;
-		final int MAX_DIRECTION = 359;
+		final int MAX_DIRECTION = 360;
 		speed = rand.nextInt(MAX_SPEED);
 		direction = rand.nextInt(MAX_DIRECTION);	
 	}
@@ -43,8 +43,11 @@ public abstract class MoveableObject extends GameObject implements IMove {
 	/**
 	 * @param newDirection Int value for new direction
 	 */
-	public void setDirection(int newDirection)	{
+	public void setDirection(int newDirection)	{ 
+		if (newDirection >= 0 && newDirection <= newDirection) {
 		direction = newDirection;
+		}
+		else {System.out.println("Error: directions must be between 0 - 359");}
 	}
 	/**
 	 * Move all MoveableObjects to their new location

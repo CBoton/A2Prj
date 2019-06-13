@@ -76,8 +76,7 @@ public class GameWorld {
 	public void addAsteroid() {
 		Asteroid a = new Asteroid();
 		gameObj.add(a);
-		astObj++;
-		System.out.println("An Asteroid has been created");
+		astObj++;	
 	}
 	/**
 	 * adds a NonPlayerShip object to the world
@@ -86,7 +85,6 @@ public class GameWorld {
 		NonPlayerShip nps = new NonPlayerShip();
 		gameObj.add(nps);
 		npship++;
-		System.out.println("A NonPlayerShip has been created");
 	}
 	/**
 	 * adds a SpaceStation object to the world
@@ -96,8 +94,7 @@ public class GameWorld {
 		SpaceStation ss = new SpaceStation();
 		gameObj.add(ss);
 		station = true;
-		System.out.println("A SpaceStation has been created");
-	}
+		}
 		else
 		{
 			System.out.println("A SpaceStation has already been created"); 
@@ -112,7 +109,6 @@ public class GameWorld {
 			PlayerShip ps = new PlayerShip();
 			gameObj.add(ps);
 			pship = true;
-			System.out.println("A PlayerShip has been created");
 		}
 		else
 		{
@@ -135,7 +131,6 @@ public class GameWorld {
 					  ps.setMissileCount(ps.getMissileCount() - 1);
 					  gameObj.add(msl); 
 					  misObj++;
-					  System.out.println("PlayerShip shot a missile!");
 				  }
 			  		else {
 			  		System.out.println("Error: No missiles remaining!"); 
@@ -160,7 +155,6 @@ public class GameWorld {
 					nps.setMissileCount(nps.getMissileCount() - 1);
 					gameObj.add(msl);
 					npsMis++;
-					System.out.println("NonPlayerShip shot a missile!");
 				}
 				else	{
 					System.out.println("Error: NonPlayerShip is out of Missiles");
@@ -265,12 +259,14 @@ public class GameWorld {
 	            if (msl != -1 && ast != -1 && msl < ast)	{
 	            	gameObj.remove(ast);
 	            	gameObj.remove(msl);
+	            	astObj-- ;
 	            	System.out.println("PlayerShip destroyed an Asteroid");
 	            	playerScore += 5;
 	            }
 	            else if(msl != -1 && ast != -1 && ast < msl){
 	            	gameObj.remove(msl);
 	            	gameObj.remove(ast);
+	            	astObj--;
 	            	System.out.println("PlayerShip destroyed an Asteroid");
 	            	playerScore += 5;
 	            }
@@ -304,12 +300,14 @@ public class GameWorld {
 	            if (msl != -1 && nps != -1 && msl < nps)	{
 	            	gameObj.remove(nps);
 	            	gameObj.remove(msl);
+	            	npship--;
 	            	System.out.println("PlayerShip destroyed a NonPlayerShip");
 	            	playerScore += 10;
 	            }
 	            else if(msl != -1 && nps != -1 && nps < msl){
 	            	gameObj.remove(msl);
 	            	gameObj.remove(nps);
+	            	npship--;
 	            	System.out.println("PlayerShip destroyed a NonPlayerShip");
 	            	playerScore += 10;
 	            }
@@ -493,6 +491,7 @@ public class GameWorld {
 		}
 			gameObj.remove(astArr[j-1]);
 			gameObj.remove(astArr[j-2]);
+			astObj-= 2;
 			System.out.println("An Asteroid collided with another Asteroid");
 		}
 	}
@@ -517,11 +516,15 @@ public class GameWorld {
 	            if (nps != -1 && ast != -1 && nps < ast)	{
 	            	gameObj.remove(ast);
 	            	gameObj.remove(nps);
+	            	astObj--;
+	            	npship--;
 	            	System.out.println("An Asteroid collided with a NonPlayerShip");
 	            }
 	            else if(nps != -1 && ast != -1 && ast < nps){
 	            	gameObj.remove(nps);
 	            	gameObj.remove(ast);
+	            	astObj--;
+	            	npship--;
 	            	System.out.println("An Asteroid collided with a NonPlayerShip");
 	            }
 	            	
@@ -577,7 +580,6 @@ public class GameWorld {
 			if(gameObj.elementAt(i) instanceof PlayerShip)	{
 				p = (PlayerShip) gameObj.elementAt(i);
 				p.decreaseSpeed();
-				System.out.println("PlayerShip is going slower");
 			}
 		}
 		}
@@ -593,7 +595,6 @@ public class GameWorld {
 			if (gameObj.elementAt(i) instanceof PlayerShip) {
                 ps = (PlayerShip) gameObj.elementAt(i);
                 ps.steerLeft();
-                System.out.println("PlayerShip turn left");
             }
 		}
 		}
@@ -610,7 +611,6 @@ public class GameWorld {
 			if (gameObj.elementAt(i) instanceof PlayerShip) {
                 ps = (PlayerShip) gameObj.elementAt(i);
                 ps.steerRight();
-                System.out.println("PlayerShip turn right");
             }
 		}
 		}
@@ -624,7 +624,6 @@ public class GameWorld {
 			if (gameObj.elementAt(i) instanceof IMove) {     
 				IMove mObj = (IMove)gameObj.elementAt(i);
 				mObj.move(); 
-				System.out.println("MoveableObject has moved");
 			}
 			if(gameObj.elementAt(i) instanceof Missile)	{
 				Missile ms = (Missile)gameObj.elementAt(i);
@@ -648,6 +647,7 @@ public class GameWorld {
 		}
 		clock++;
 		System.out.println("Clock has ticked");
+		System.out.println("MoveableObjects has moved");
 	}
 	
 	

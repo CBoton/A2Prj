@@ -16,6 +16,7 @@ public class SpaceStation extends FixedObject {
 		final int MAX_BLINK_RATE = 6;
 		blinkRate = GameObject.rand.nextInt(MAX_BLINK_RATE);
 		lightOn = true;
+		System.out.println("A SpaceStation has been created");
 	}
 	/**
 	 * @return Int value for SpaceStation's blinkRate
@@ -27,7 +28,10 @@ public class SpaceStation extends FixedObject {
 	 * @param newBlinkRate Int value for new blink rate of SpaceStation
 	 */
 	public void setBlinkRate(int newBlinkRate)	{
+		if (newBlinkRate >= 0 && newBlinkRate <=6 ) {
 		blinkRate = newBlinkRate;
+		}
+		else {System.out.println("Error: Invalid BlinkRate");}
 	}
 	/**
 	 * Turns blinkingLight on/off

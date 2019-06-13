@@ -25,6 +25,7 @@ public class Asteroid extends MoveableObject {
 		final int MIN_SIZE = 6;
 		size = rand.nextInt(MAX_SIZE - MIN_SIZE) + MIN_SIZE;
 		this.setColor(ColorUtil.CYAN);
+		System.out.println("An Asteroid has been created");
 	}
 	/**
 	 * @return Int value for size of Asteroid
@@ -36,7 +37,10 @@ public class Asteroid extends MoveableObject {
 	 * @param newSize Int value for new size
 	 */
 	public void setSize(int newSize)	{
+		if (newSize >= 6 && newSize <= 30) {
 		size = newSize;
+		}
+		else {System.out.println("Error: Invalid size");}
 	}
 	/**
 	 * @return String representation of Asteroid in format 

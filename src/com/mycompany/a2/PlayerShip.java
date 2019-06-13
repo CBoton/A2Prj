@@ -27,6 +27,7 @@ public class PlayerShip extends Ship implements ISteer	{
 		this.setDirection(90);
 		this.setSpeed(0);
 		playerLauncher = new PlayerMissileLauncher(center,  this.getSpeed(), this.getDirection());
+		System.out.println("A PlayerShip has been created");
 		
 		
 	}
@@ -39,8 +40,10 @@ public class PlayerShip extends Ship implements ISteer	{
 			System.out.println("Error: Ship is at full speed");
 		}
 		else
+			{
 			setSpeed(this.getSpeed() + 1);
 		System.out.println("PlayerShip is going faster");
+			}
 			
 	}
 	/**
@@ -52,7 +55,9 @@ public class PlayerShip extends Ship implements ISteer	{
 		System.out.println("Error: If you went any slower you would be going backwards");
 		}
 		else
-			setSpeed(this.getSpeed() - 1);
+			{setSpeed(this.getSpeed() - 1);
+		System.out.println("PlayerShip is going slower");
+			}
 	}
 	/**
 	 * Reloads ships Missiles to a max value of 10
@@ -60,6 +65,7 @@ public class PlayerShip extends Ship implements ISteer	{
 	public void reloadMissiles()	{
 		final int MAX_MISSILES = 10;
 		this.setMissileCount(MAX_MISSILES);
+		System.out.println("PlayerShipMissiles have been reloaded");
 	}
 	/**
 	 * Turns ship left 2 degrees
@@ -68,7 +74,8 @@ public class PlayerShip extends Ship implements ISteer	{
 		if(this.getDirection() >= 2) {
 		this.setDirection(getDirection() - 2);
 		}
-		else this.setDirection(this.getDirection() + 358);
+		else {this.setDirection(this.getDirection() + 358);}
+		System.out.println("The PlayerShip has turned left");
 	}
 	/**
 	 * Turns ship right 2 degrees
@@ -77,7 +84,8 @@ public class PlayerShip extends Ship implements ISteer	{
 		if (this.getDirection() <= 357) {
 		this.setDirection(getDirection() + 2);
 		}
-		else this.setDirection(this.getDirection() - 358);
+		else {this.setDirection(this.getDirection() - 358);}
+		System.out.println("The PlayerShip has turned right");
 	}
 	
 	/**

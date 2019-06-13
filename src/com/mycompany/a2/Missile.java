@@ -30,6 +30,8 @@ public class Missile extends MoveableObject	{
         this.setSpeed(speed + 2);
         this.setDirection(dir);
         playerShip = ps;
+        if(ps) { System.out.println("PlayerShip shot a missile!");}
+        else { System.out.println("NonPlayerShip shot a missile!");}
 	}
 	/**
 	 * @return True = PlayerShip Missile or  False = NonPlayerShip Missile.

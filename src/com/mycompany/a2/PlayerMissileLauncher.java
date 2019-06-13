@@ -28,13 +28,21 @@ public class PlayerMissileLauncher extends MissileLauncher implements ISteer {
 	/**
 	 * Turn PLayerMissileLauncher left 2 degrees
 	 */
-	public void steerLeft() {
-		this.setDirection(this.getDirection() - 2);
+	public void steerLeft(){
+		if(this.getDirection() >= 2) {
+		this.setDirection(getDirection() - 2);
+		}
+		else {this.setDirection(this.getDirection() + 358);}
+		System.out.println("Turned MissileLauncher left");
 	}
 	/**
 	 * Turn PLayerMissileLauncher right 2 degrees
 	 */
 	public void steerRight() {
-		this.setDirection(this.getDirection() + 2);
+		if (this.getDirection() <= 357) {
+		this.setDirection(getDirection() + 2);
+		}
+		else {this.setDirection(this.getDirection() - 358);}
+		System.out.println("Turned MissileLauncher right");
 	}
 }
