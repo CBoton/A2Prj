@@ -19,7 +19,7 @@ public abstract class MoveableObject extends GameObject implements IMove {
 		
 		final int MAX_SPEED = 21;
 		final int MAX_DIRECTION = 360;
-		speed = rand.nextInt(MAX_SPEED);
+		speed = rand.nextInt(MAX_SPEED) + 1;
 		direction = rand.nextInt(MAX_DIRECTION);	
 	}
 	/**
