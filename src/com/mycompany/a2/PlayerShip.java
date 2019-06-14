@@ -73,8 +73,12 @@ public class PlayerShip extends Ship implements ISteer	{
 	public void steerLeft() {
 		if(this.getDirection() >= 2) {
 		this.setDirection(getDirection() - 2);
+		playerLauncher.steerLeft();
 		}
-		else {this.setDirection(this.getDirection() + 358);}
+		else {
+			this.setDirection(this.getDirection() + 358);
+			playerLauncher.steerLeft();
+			}
 		System.out.println("The PlayerShip has turned left");
 	}
 	/**
@@ -83,8 +87,12 @@ public class PlayerShip extends Ship implements ISteer	{
 	public void steerRight() {
 		if (this.getDirection() <= 357) {
 		this.setDirection(getDirection() + 2);
+		playerLauncher.steerRight();
 		}
-		else {this.setDirection(this.getDirection() - 358);}
+		else {
+			this.setDirection(this.getDirection() - 358);
+			playerLauncher.steerRight();
+		}
 		System.out.println("The PlayerShip has turned right");
 	}
 	
