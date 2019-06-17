@@ -182,7 +182,7 @@ public class GameWorld implements IGameWorld{
 			          	ps = (PlayerShip) x;
 			      		if(ps.getMissileCount() > 0) { 
 			      			Missile msl = new Missile(ps.getLocation(),ps.getSpeed(), ps.getLauncherDirection(),pship); 
-			      			ps.setMissileCount(ps.getMissileCount() - 1);
+			      			ps.decrementMissileCount();
 			      			gameObj.add(msl); 
 			      			misObj++;
 			      		}
@@ -252,7 +252,6 @@ public class GameWorld implements IGameWorld{
 			          ps = (PlayerShip) x;
 			          if(ps.getMissileCount() < 10) {
 			        	  ps.reloadMissiles();
-			        	  System.out.println("Missiles have been reloaded");
 			          }
 			          else	{
 			          		System.out.println("Error: Missiles already full");

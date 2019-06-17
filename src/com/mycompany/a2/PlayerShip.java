@@ -53,6 +53,7 @@ public class PlayerShip extends Ship implements ISteer	{
 	public void reloadMissiles()	{
 		final int MAX_MISSILES = 10;
 		this.setMissileCount(MAX_MISSILES);
+		System.out.println("Missiles have been reloaded");
 	}
 	/**
 	 * Turns ship left 2 degrees
