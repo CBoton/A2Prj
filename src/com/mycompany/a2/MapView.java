@@ -19,31 +19,35 @@ public class MapView extends Container implements Observer	{
 		tf.setEditable(false);
 		this.setHeight(768);
 		this.setWidth(1024);
-		add(BorderLayout.NORTH, tf);
+		this.add(BorderLayout.NORTH, tf);
 		
 	}
 	/**
 	 * Function to print current Map Data
-	 * @param obs
-	 * @param obj
+	 * @param obs 
+	 * @param obj - stores Collection of GameObjects
 	 */
 	public void update(Observable obs, Object obj)	{
-		
-		//NEED TO ADD A toString() to this then call repaint();
-		//this.repaint();
+		String mapOutput="";
+		GameObjectCollection gameObj = (GameObjectCollection) obj;
+		IIterator iColl = gameObj.getIterator();
+		while(iColl.hasNext())	{
+			mapOutput = mapOutput + iColl.getNext().toString();
+		}
+		this.repaint();
 	}
 	/**
 	 * 
 	 * @return the Width of the Game Map
  	 */
 	public double getMapWidth()	{
-		return (double) this.getWidth();
+		return (double)getWidth();
 	}
 	/**
 	 * 
 	 * @return the Height of the Game Map
 	 */
 	public double getMapHeight()	{
-		return (double) this.getHeight();
+		return (double)getHeight();
 	}
 }
