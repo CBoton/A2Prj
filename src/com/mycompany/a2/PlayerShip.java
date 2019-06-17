@@ -8,28 +8,19 @@ import com.codename1.ui.geom.Point2D;
  * Instantiates a Player with location in center of map and color from GameObject,
  * speed and direction are 0 and 90. Also instantiates a PlayerMissileLauncher that lives/dies with the Ship.
  */
-@SuppressWarnings("unused")
-
-
-
-
 public class PlayerShip extends Ship implements ISteer	{
 	private PlayerMissileLauncher playerLauncher;
-	
 	/**
-	 * Constructs a PlayeShip
+	 * Constructs a PlayerShip
 	 */
 	public PlayerShip()	{
-		
 		Point2D center = new Point2D(512,384);
 		this.setLocation(center);
 		this.setColor(ColorUtil.GREEN);
 		this.setDirection(90);
 		this.setSpeed(0);
-		playerLauncher = new PlayerMissileLauncher(center,  this.getSpeed(), this.getDirection());
+		playerLauncher = new PlayerMissileLauncher(center, this.getSpeed(), this.getDirection());
 		System.out.println("A PlayerShip has been created");
-		
-		
 	}
 	/**
 	 * Increases speed of Ship by 1
@@ -40,10 +31,8 @@ public class PlayerShip extends Ship implements ISteer	{
 			System.out.println("Error: Ship is at full speed");
 		}
 		else
-			{
 			setSpeed(this.getSpeed() + 1);
 		System.out.println("PlayerShip is going faster");
-			}
 			
 	}
 	/**
@@ -55,9 +44,8 @@ public class PlayerShip extends Ship implements ISteer	{
 		System.out.println("Error: If you went any slower you would be going backwards");
 		}
 		else
-			{setSpeed(this.getSpeed() - 1);
+			setSpeed(this.getSpeed() - 1);
 		System.out.println("PlayerShip is going slower");
-			}
 	}
 	/**
 	 * Reloads ships Missiles to a max value of 10
@@ -65,7 +53,6 @@ public class PlayerShip extends Ship implements ISteer	{
 	public void reloadMissiles()	{
 		final int MAX_MISSILES = 10;
 		this.setMissileCount(MAX_MISSILES);
-		System.out.println("PlayerShipMissiles have been reloaded");
 	}
 	/**
 	 * Turns ship left 2 degrees
@@ -95,7 +82,6 @@ public class PlayerShip extends Ship implements ISteer	{
 		}
 		System.out.println("The PlayerShip has turned right");
 	}
-	
 	/**
 	 * @return Int direction of PlayerMissileLauncher
 	 */
@@ -107,6 +93,11 @@ public class PlayerShip extends Ship implements ISteer	{
 	 */
 	public void revolveLauncher()	{
 		playerLauncher.steerRight();
+	}
+	
+	public void returnToCenter()	{
+		Point2D center = new Point2D(512,384);
+		this.setLocation(center);
 	}
 	public String toString()	{
 		String topOne = super.toString();
