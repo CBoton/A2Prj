@@ -1,4 +1,7 @@
 package com.mycompany.a2;
+
+import com.codename1.charts.util.ColorUtil;
+
 /**
  * @author Daniel Curtis and Curtis Botonis
  *
@@ -16,11 +19,11 @@ public class SpaceStation extends FixedObject {
 		final int MAX_BLINK_RATE = 6;
 		blinkRate = GameObject.rand.nextInt(MAX_BLINK_RATE) + 1;
 		lightOn = true;
-		System.out.println("A SpaceStation has been created");
+		setColor(ColorUtil.LTGRAY);
 	}
 	/**
 	 * @return Int value for SpaceStation's blinkRate
-	 */
+	 */	
 	public int getBlinkRate() {
 		return blinkRate;
 	}
@@ -29,9 +32,9 @@ public class SpaceStation extends FixedObject {
 	 */
 	public void setBlinkRate(int newBlinkRate)	{
 		if (newBlinkRate >= 1 && newBlinkRate <=6 ) {
-		blinkRate = newBlinkRate;
-		}
-		else {System.out.println("Error: Invalid BlinkRate");}
+			blinkRate = newBlinkRate;
+			}
+			else {System.out.println("Error: Invalid BlinkRate");}
 	}
 	/**
 	 * Turns blinkingLight on/off
@@ -42,6 +45,7 @@ public class SpaceStation extends FixedObject {
 		else
 			lightOn = false;
 	}
+	
 	public String toString()	{
 		String topOne = super.toString(); 
 		String thisOne = " rate=" + blinkRate;

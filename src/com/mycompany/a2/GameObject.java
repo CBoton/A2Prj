@@ -10,17 +10,31 @@ import com.codename1.charts.util.ColorUtil;
  * This class generates a GameObject with random Point2D location with GRAY color
  */
 public abstract class GameObject	{
+	/**
+	 * Point2D value to store the location values (x,y)
+	 */
 	private Point2D location;
+	/**
+	 * Int value to store the color in the format [int,int,int]
+	 */
 	private int color;
+	/**
+	 * Static Random value to generate random integers
+	 */
 	protected static Random rand = new Random();
+	
 	
 	/**
 	 * Default constructor
+	 *  set the location to a random Double within the board space
+	 *  set the default color of a gameObject to Gray.
 	 */
 	public GameObject()	{
-		final int MAX_WIDTH = 1024;
-		final int MAX_HEIGHT = 768;
-		location = new Point2D((double)rand.nextInt(MAX_WIDTH),(double)rand.nextInt(MAX_HEIGHT));
+		final double MAX_WIDTH = 1024.0;
+		final double MAX_HEIGHT = 768.0;
+		double myVal1 = Math.round((MAX_WIDTH*rand.nextDouble())*10) /10.0;
+		double myVal2 = Math.round((MAX_HEIGHT*rand.nextDouble())*10) /10.0;
+		location = new Point2D(myVal1,myVal2);
 		color = ColorUtil.GRAY;
 		
 	}
@@ -63,13 +77,11 @@ public abstract class GameObject	{
 	public void setColor(int colorNum)	{
 		color = colorNum;
 	}
-	
-	
 	/**
 	 * @return Returns a string with the location and color of the object
 	 */
 	public String toString()	{
-		String thisOne = "loc=" + getLocation() + this.getColor();
-		return thisOne;
+		String topOne = "loc=" + getLocation() + this.getColor();
+		return topOne;
 	}
 }

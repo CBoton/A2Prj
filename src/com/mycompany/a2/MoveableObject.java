@@ -7,6 +7,7 @@ import com.codename1.ui.geom.Point2D;
  * Adds speed and direction to GameObject
  *
  */
+
 public abstract class MoveableObject extends GameObject implements IMove {
 	private int speed;
 	private int direction;
@@ -19,7 +20,7 @@ public abstract class MoveableObject extends GameObject implements IMove {
 		
 		final int MAX_SPEED = 21;
 		final int MAX_DIRECTION = 360;
-		speed = rand.nextInt(MAX_SPEED) + 1;
+		speed = rand.nextInt(MAX_SPEED)+1;
 		direction = rand.nextInt(MAX_DIRECTION);	
 	}
 	/**
@@ -43,11 +44,11 @@ public abstract class MoveableObject extends GameObject implements IMove {
 	/**
 	 * @param newDirection Int value for new direction
 	 */
-	public void setDirection(int newDirection)	{ 
+	public void setDirection(int newDirection)	{
 		if (newDirection >= 0 && newDirection <= newDirection) {
-		direction = newDirection;
-		}
-		else {System.out.println("Error: directions must be between 0 - 359");}
+			direction = newDirection;
+			}
+			else {System.out.println("Error: directions must be between 0 - 359");}
 	}
 	/**
 	 * Move all MoveableObjects to their new location
@@ -82,4 +83,5 @@ public abstract class MoveableObject extends GameObject implements IMove {
 		String thisOne = " speed=" + getSpeed() + " dir=" + getDirection();
 		return topOne + thisOne;
 	}
+	
 }

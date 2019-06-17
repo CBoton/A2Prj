@@ -12,7 +12,6 @@ import com.codename1.ui.geom.Point2D;
 
 public class Missile extends MoveableObject	{
 	private int fuelLevel;
-	private Ship ship;
 	private boolean playerShip;
 	
 	/**
@@ -41,7 +40,6 @@ public class Missile extends MoveableObject	{
 		
 		return false;
 	}
-		
 	/**
 	 * Decrements Missile Fuel level
 	 */

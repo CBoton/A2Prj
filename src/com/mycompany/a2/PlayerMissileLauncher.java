@@ -8,23 +8,18 @@ import com.codename1.ui.geom.Point2D;
  * speed and direction determined by Player/NonPlayerShip.
  */
 
-@SuppressWarnings("unused")
-
 public class PlayerMissileLauncher extends MissileLauncher implements ISteer {
-	private PlayerShip playerShip;
-	
 	/**
 	 * @param location location of PlayerShip (passed from method call in GameWorld)
 	 * @param speed speed of PlayerShip (passed from method call in GameWorld)
 	 * @param dir direction of PlayerShip (passed from method call in GameWorld)
 	 */
-	public PlayerMissileLauncher(Point2D location, int speed, int dir)	{
-		super(location,speed,dir);
-		this.setLocation(location);
-		this.setSpeed(speed);
-		this.setDirection(dir);
+	public PlayerMissileLauncher(Point2D location, int speed, int dir)    {
+	        super(location, speed, dir);
+	        this.setLocation(location);
+	        this.setSpeed(speed);
+	        this.setDirection(dir);
 	}
-	
 	/**
 	 * Turn PLayerMissileLauncher left 2 degrees
 	 */

@@ -3,9 +3,6 @@ package com.mycompany.a2;
  * @author Daniel Curtis and Curtis Botonis
  *
  */
-@SuppressWarnings("unused")
-
-
 
 public abstract class FixedObject extends GameObject{
 	private int idNumber;
@@ -19,13 +16,13 @@ public abstract class FixedObject extends GameObject{
 		++nextId;
 		
 	}
-	
 	/**
 	 * @return An ID number
 	 */
 	public static int getNextId()	{
 		return nextId;
 	}
+	
 	public String toString()	{
 		String topOne = super.toString();
 		return topOne;

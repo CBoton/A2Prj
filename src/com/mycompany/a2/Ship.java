@@ -1,12 +1,11 @@
 package com.mycompany.a2;
 
-
-
 /**
  * @author Daniel Curtis and Curtis Botonis
  * 
  *
  */
+
 public abstract class Ship extends MoveableObject{
 	
 	private int missileCount;
@@ -21,8 +20,8 @@ public abstract class Ship extends MoveableObject{
 	/**
 	 * Reduces ships missile count by 1
 	 */
-	public void decrementMissileCount()	{
-	 --missileCount;
+	public int decrementMissileCount()	{
+		return --missileCount;
 	}
 	/**
 	 * @return The number of Missile's a Ship has
@@ -31,13 +30,14 @@ public abstract class Ship extends MoveableObject{
 		return missileCount;
 	}
 	/**
-	 * @param newMissileCount 
+	 * @param newMissileCount Int value for new missile count
 	 */
 	public void setMissileCount(int newMissileCount)	{
 		if (newMissileCount <= 10) {
 		missileCount = newMissileCount;}
 		else System.out.println("Error: You can't have more than 10 missiles");
 	}
+	
 	public String toString()	{
 		String topOne = super.toString();
 		String thisOne = " missiles=" + getMissileCount();

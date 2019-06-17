@@ -2,7 +2,6 @@ package com.mycompany.a2;
 
 import com.codename1.charts.util.ColorUtil;
 
-
 /**
  * @author Daniel Curtis and Curtis Botonis
  * This class Inherits from GameObject and MoveableObject,
@@ -10,7 +9,6 @@ import com.codename1.charts.util.ColorUtil;
  * gets random speed and direction from MoveableObject
  */
 public class Asteroid extends MoveableObject {
-	
 	/**
 	 * int value for size of Asteroid
 	 */
@@ -24,7 +22,7 @@ public class Asteroid extends MoveableObject {
 		final int MAX_SIZE = 30;
 		final int MIN_SIZE = 6;
 		size = rand.nextInt(MAX_SIZE - MIN_SIZE) + MIN_SIZE;
-		this.setColor(ColorUtil.CYAN);
+		this.setColor(ColorUtil.YELLOW);
 		System.out.println("An Asteroid has been created");
 	}
 	/**
@@ -38,9 +36,9 @@ public class Asteroid extends MoveableObject {
 	 */
 	public void setSize(int newSize)	{
 		if (newSize >= 6 && newSize <= 30) {
-		size = newSize;
-		}
-		else {System.out.println("Error: Invalid size");}
+			size = newSize;
+			}
+			else {System.out.println("Error: Invalid size");}
 	}
 	/**
 	 * @return String representation of Asteroid in format 
