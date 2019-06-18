@@ -94,7 +94,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 *  Add Points to playerScore
 	 */
 	public void setPlayerScore(int playerScore)	{
-		playerScore += playerScore;
+		this.playerScore += playerScore;
 		setChanged();
 		notifyObservers();
 	}
@@ -375,8 +375,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			System.out.println("PlayerShip missile hit NonPlayerShip");
 			setPlayerScore(5);
 		}
-		setChanged();
-		notifyObservers();
+		
 	}
 	/**
 	 * A NonPlayerShip's Missile has hit the PlayerShip,
@@ -628,11 +627,12 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}			
 		}
+		System.out.println("Clock has ticked");
+		System.out.println("MoveableObjects has moved");
 		incrementGameclock();
 		setChanged();
 		notifyObservers();
-		System.out.println("Clock has ticked");
-		System.out.println("MoveableObjects has moved");
+		
 	}
 	/**
 	 * Cycle through collection to find instance of PlayerShip and remove
@@ -643,6 +643,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			GameObject x = iterator.getNext();
 			if(x instanceof PlayerShip)	{
 				gameObj.remove(x);
+				break;
 			}
 		}
 	}
@@ -655,6 +656,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			GameObject x = iterator.getNext();
 			if(x instanceof NonPlayerShip)	{
 				gameObj.remove(x);
+				break;
 			}
 		}
 	}
@@ -676,14 +678,12 @@ public class GameWorld extends Observable implements IGameWorld{
 	 */
 	public void psMissileHit()	{
 		IIterator iterator = getIterator();
-		Missile msl = null;
 		while(iterator.hasNext())	{
 			GameObject x = iterator.getNext();
-			if(x instanceof Missile)	{
-				msl = (Missile) x;
-				if(msl.getMissileType())	{
+			if(x instanceof Missile && ((Missile) x).getMissileType())	{
+					
 					gameObj.remove(x);
-				}
+					break;
 			}
 		}
 	}
@@ -699,6 +699,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				msl = (Missile) x;
 				if(!msl.getMissileType())	{
 					gameObj.remove(x);
+					break;
 				}
 			}
 		}
