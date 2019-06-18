@@ -248,7 +248,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			        	  Missile msl = new Missile(nps.getLocation(),nps.getSpeed(), nps.getDirection(),false); 
 			        	  nps.setMissileCount(nps.getMissileCount() - 1);
 			        	  gameObj.add(msl); 
-			        	  misObj++;
+			        	  npsMis++;
 			          }			          
 			          else {
 			        	  System.out.println("Error: No missiles remaining!"); 
