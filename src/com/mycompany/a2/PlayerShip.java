@@ -96,6 +96,13 @@ public class PlayerShip extends Ship implements ISteer	{
 		playerLauncher.steerRight();
 	}
 	
+	/**
+	 * Turns PlayerMissile Launcher 2 degrees counterclockwise
+	 */
+	public void revolveLauncherLeft()	{
+		playerLauncher.steerLeft();
+	}
+	
 	public void returnToCenter()	{
 		Point2D center = new Point2D(512,384);
 		this.setLocation(center);

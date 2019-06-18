@@ -1,12 +1,13 @@
 package com.mycompany.a2;
 
 import java.util.Collection;
+import java.util.Observable;
 
 /**
  * @author Daniel Curtis and Curtis Botonis
  * Generates and controls game world
  */
-public class GameWorld implements IGameWorld{
+public class GameWorld extends Observable implements IGameWorld{
 	// Game data //
 	/**
 	 * Vector to store GameObjects
@@ -263,7 +264,7 @@ public class GameWorld implements IGameWorld{
 	/**
 	 * turns the PLayerShipMissileLauncher clockwise
 	 */
-	public void turnLauncher() {
+	public void turnLauncherRight() {
 		IIterator theColl = getIterator();
 		if(!pship) {System.out.println("Error: No PlayerShip means no missile launcher to turn");}
 		else {
@@ -273,6 +274,23 @@ public class GameWorld implements IGameWorld{
 			    if (x instanceof PlayerShip)	{
 			          ps = (PlayerShip) x;
 			          ps.revolveLauncher();
+			    }
+			}
+		}
+	}
+	/**
+	 * turns the PLayerShipMissileLauncher counterclockwise
+	 */
+	public void turnLauncherLeft() {
+		IIterator theColl = getIterator();
+		if(!pship) {System.out.println("Error: No PlayerShip means no missile launcher to turn");}
+		else {
+			while(theColl.hasNext()) {
+				PlayerShip ps = null;
+				GameObject x = theColl.getNext();
+			    if (x instanceof PlayerShip)	{
+			          ps = (PlayerShip) x;
+			          ps.revolveLauncherLeft();
 			    }
 			}
 		}
@@ -300,10 +318,6 @@ public class GameWorld implements IGameWorld{
 	 * player score + 10.
 	 */
 	public void psMissileHitNPS()     {
-		IIterator theColl = getIterator();
-		Missile mType = null;
-		boolean pmFound = false;
-		boolean nFound = false;
 		if (misObj == 0) {System.out.println("Error: No missiles to explose NPS");}
 		else if(npship == 0) {System.out.println("Error: There are no NPS to explode");}
 		else {

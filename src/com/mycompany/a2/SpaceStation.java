@@ -20,6 +20,7 @@ public class SpaceStation extends FixedObject {
 		blinkRate = GameObject.rand.nextInt(MAX_BLINK_RATE) + 1;
 		lightOn = true;
 		setColor(ColorUtil.LTGRAY);
+		System.out.println("Space Station has been added");
 	}
 	/**
 	 * @return Int value for SpaceStation's blinkRate

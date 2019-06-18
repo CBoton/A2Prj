@@ -2,27 +2,194 @@ package com.mycompany.a2;
 
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Border;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import java.lang.String;
+
+import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
+import com.mycompany.commands.*;
 
 import java.util.Observable;
 
 public class Game extends Form	{
 	private GameWorld gw;
-	//private MapView mv;
-	//private PointsView pv;
+	private MapView mv;
+	private PointsView pv;
 	
 	public Game()	{
+		this.setLayout(new BorderLayout());
 		gw = new GameWorld();
+		mv = new MapView();
+		pv = new PointsView();
+		commandMenu();
+		
+		gw.addObserver(mv);
+		gw.addObserver(pv);
+		
+		this.addComponent(BorderLayout.CENTER, mv);
+		this.addComponent(BorderLayout.NORTH, pv);
+		
 		gw.init();
-		play();
+		this.show();
+		
+		//play();
 	}
-	private void play()	{
+	
+	private void commandMenu() {
+		/**
+		 * Create container to store controlPanel buttons.
+		 */
+		Container controlPanel = new Container();
+		controlPanel.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+		controlPanel.getAllStyles().setBorder(Border.createLineBorder(2, ColorUtil.BLACK));
+		
+		/**
+		 * Add Asteroid
+		 */
+		//AddAsteroidCmd addAstCmd = new AddAsteroidCmd(gw);
+	
+		/**
+		 * Add Non Player Ship
+		 */
+		//AddNPSCmd addNPSCmd = new AddNPSCmd(gw);
+		
+		/**
+		 * Add Space Station
+		 */
+		//AddStationCmd addStationCmd = new AddStationCmd(gw);
+
+		/**
+		 * Add Player Ship
+		 */
+		//AddPSCmd addPSCmd = new AddPSCmd(gw);
+
+		/**
+		 * Increase Player Ship Speed
+		 */
+		//IncreaseSpeedCmd increaseSpeedCmd = new IncreaseSpeedCmd(gw);
+		
+		/**
+		 * Decrease Player Ship Speed
+		 */
+		//DecreaseSpeedCmd decreaseSpeedCmd = new DecreaseSpeedCmd(gw);
+		
+		/**
+		 * Turn Left Player Ship
+		 */
+		//TurnPSLeftCmd turnPSLeftCmd = new TurnPSLeftCmd(gw);
+		
+		/**
+		 * Turn Right Player Ship
+		 */
+		//TurnPSRightCmd turnPsRightCmd = new TurnPSRightCmd(gw);
+		
+		/**
+		 * Turn Left Missile Launcher
+		 */
+		//TurnMLLeftCmd turnMLLeftCmd = new TurnMLLeftCmd(gw);
+		
+		/**
+		 * Turn Right Missile Launcher
+		 */
+		//TurnMLRightCmd turnMLRightCmd = new TurnMLRightCmd(gw);
+		
+		/**
+		 * Player Ship firing 
+		 */
+		//PSFireCmd psFireCmd = new PSFireCmd(gw);
+		
+		/**
+		 * Non Player Ship firing
+		 */
+		//NPSFireCmd npsFireCmd = new NPSFireCmd(gw);
+		
+		/**
+		 * Jump
+		 */
+		//JumpCmd jumpCmd = new JumpCmd(gw);
+		
+		/**
+		 * Load Missiles to Player Ship
+		 */
+		//ReloadPSCmd reloadPsCmd = new ReloadPSCmd(gw);
+		
+		/**
+		 * Player Ship Missile hits Asteroid
+		 */
+		//PSMissileHitAsteroidCmd psMissileHitAsteroidCmd = new psMissileHitAsteroidCmd(gw);
+		
+		/**
+		 * Player Ship Missile Hits Non Player Ship
+		 */
+		//PSMissileHitNPSCmd psMissileHitNPSCmd = new PSMissileHitNPSCmd(gw);
+		
+		/**
+		 * Non Player Ship Missiles Hits Player Ship
+		 */
+		//NPSMissileHitPSCmd npsMissileHitPSCmd = new NPSMissileHitPSCmd(gw);
+		
+		/**
+		 * Player Ship Hits Asteroid
+		 */
+		//PSHitsAsteroidCmd psHitsAsteroidCmd = new PSHitsAsteroidCmd(gw);
+		
+		/**
+		 * Player Ship hits Non Player Ship
+		 */
+		//PSHitsNPSCmd psHitsNPSCmd = new PSHitsNPSCmd(gw);
+		
+		/**
+		 * Asteroid hits another Asteroid
+		 */
+		//TwoAsteroidsCollideCmd twoAsteroidsCollideCmd = new TwoAsteroidsCollideCmd(gw);
+		
+		/**
+		 * Asteroid hits Non Player Ship
+		 */
+		//AsteroidHitsNPSCmd asteroidHitsNPSCmd = new AsteroidHitsNPSCmd(gw);
+		
+		/**
+		 * Run a tick command
+		 */
+		//TickCmd tickCmd = new TickCmd(gw);
+		
+///////*****SIDE MENU******/////////
+		
+		/**
+		 * Quit the Game
+		 */
+		//QuitCmd quitCmd = new QuitCmd(gw);
+		
+		/**
+		 * About
+		 */
+		
+		/**
+		 * Sound Check Box
+		 */
+		
+		/**
+		 * New
+		 */
+		
+		/**
+		 * Save
+		 */
+		
+		/**
+		 * Undo
+		 */
+		
+	}
+		
+	/*private void play()	{
 		Label myLabel=new Label("Enter a Command:");
 		this.addComponent(myLabel);
 		final TextField myTextField=new TextField();
@@ -60,8 +227,11 @@ public class Game extends Form	{
 					case 'p':
 						gw.printDisplay();
 						break;
+					case '<':
+						gw.turnLauncherLeft();
+						break;
 					case '>':
-						gw.turnLauncher();
+						gw.turnLauncherRight();
 						break;
 					case 'n':
 						gw.resupplyMissiles();
@@ -117,6 +287,8 @@ public class Game extends Form	{
 		}
 		);
 		
-	}
+	}*/
+
+	
 }
 
