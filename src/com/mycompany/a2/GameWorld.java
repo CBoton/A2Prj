@@ -3,6 +3,9 @@ package com.mycompany.a2;
 import java.util.Collection;
 import java.util.Observable;
 
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
+
 /**
  * @author Daniel Curtis and Curtis Botonis
  * Generates and controls game world
@@ -631,5 +634,14 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+	}
+	/**
+	 * Method to confirm before user quits.
+	 */
+	public void quit()	{
+		Boolean bOk= Dialog.show("Confirm quit", "Are you sure you want to quit?", "Ok", "Cancel");
+	     if (bOk) {
+	          Display.getInstance().exitApplication();
+	    }
 	}
 }

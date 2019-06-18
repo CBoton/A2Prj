@@ -165,27 +165,32 @@ public class Game extends Form	{
 		/**
 		 * Quit the Game
 		 */
-		//QuitCmd quitCmd = new QuitCmd(gw);
+		QuitCmd quitCmd = new QuitCmd(gw);
 		
 		/**
 		 * About
 		 */
+		AboutCmd aboutCmd = new AboutCmd(gw);
 		
 		/**
 		 * Sound Check Box
 		 */
+		SoundCheckCmd soundCheckCmd = new SoundCheckCmd(gw);
 		
 		/**
 		 * New
 		 */
+		NewCmd newCmd = new NewCmd(gw);
 		
 		/**
 		 * Save
 		 */
+		SaveCmd saveCmd = new SaveCmd(gw);
 		
 		/**
 		 * Undo
 		 */
+		UndoCmd undoCmd = new UndoCmd(gw);
 		
 	}
 		
@@ -276,6 +281,7 @@ public class Game extends Form	{
 						gw.clockTicked();
 						break;
 					case 'q':
+						gw.quit();
 						Boolean bOk= Dialog.show("Confirm quit", "Are you sure you want to quit?", "Ok", "Cancel");
 					     if (bOk) {
 					          Display.getInstance().exitApplication();
