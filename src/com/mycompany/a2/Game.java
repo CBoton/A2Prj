@@ -30,8 +30,8 @@ public class Game extends Form	{
 	public Game()	{
 		this.setLayout(new BorderLayout());
 		gw = new GameWorld();
-		mv = new MapView();
-		pv = new PointsView();
+		mv = new MapView(gw);
+		pv = new PointsView(gw);
 		commandMenu();
 		gw.addObserver(mv);
 		gw.addObserver(pv);
