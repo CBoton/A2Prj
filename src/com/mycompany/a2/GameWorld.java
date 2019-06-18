@@ -355,8 +355,6 @@ public class GameWorld extends Observable implements IGameWorld{
 			System.out.println("PlayerShip missile hit an Asteroid");
 			setPlayerScore(10);
 		}
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
