@@ -20,7 +20,7 @@ public class PointsView extends Container implements Observer {
 	/**
 	 * Label for total time elapsed
 	 */
-	private Label elapsedTimeValueLabel;
+	private Label elapsedTimeLabel;
 	/**
 	 * Label for soundValue
 	 */
@@ -46,16 +46,16 @@ public class PointsView extends Container implements Observer {
 	 * updated PointsView Observer
 	 */
 	public void update(Observable observable, Object data) {
-		GameWorld gw = (GameWorld) data;
-		pointsValueLabel.setText("" + gw.getPlayerScore());
-		elapsedTimeValueLabel.setText("" + gw.getElapsedTime());
-		livesValueLabel.setText("" + gw.getLivesRemaining());
-		if (gw.isSoundEnabled())	{
-			soundValueLabel.setText("ON");
+		IGameWorld gw = (IGameWorld) data;
+		this.pointsValueLabel.setText("" + ((IGameWorld) observable).getPlayerScore());
+		this.elapsedTimeLabel.setText("" + ((IGameWorld) observable).getElapsedTime());
+		this.livesValueLabel.setText("" + ((IGameWorld) observable).getLivesRemaining());
+		if (((IGameWorld) observable).isSoundEnabled())	{
+			this.soundValueLabel.setText("ON");
 		}
 		else
 		{
-			soundValueLabel.setText("OFF");
+			this.soundValueLabel.setText("OFF");
 		}
 		this.repaint();
 		

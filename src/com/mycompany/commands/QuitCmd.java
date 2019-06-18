@@ -17,6 +17,7 @@ public class QuitCmd extends Command{
 	}
 	@Override
 	public void actionPerformed(ActionEvent evt)	{
+		System.out.println("Quit has been called from the Side Menu");
 		gw.quit();
 	}
 

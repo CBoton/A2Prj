@@ -8,13 +8,13 @@ public class SoundCheckCmd extends Command {
 	private GameWorld gw;
 	
 	public SoundCheckCmd(GameWorld gw) {
-		super("Sound Check Box");
+		super("Sound");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent evt)	{
-		gw.setSound(gw.isSoundEnabled());
+		gw.setSound();
 	}
 
 }

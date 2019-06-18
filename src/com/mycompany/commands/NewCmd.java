@@ -1,6 +1,8 @@
 package com.mycompany.commands;
 
 import com.codename1.ui.Command;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
@@ -19,7 +21,12 @@ public class NewCmd extends Command {
 	
 	@Override
 	public void actionPerformed(ActionEvent evt)	{
-		gw = new GameWorld();
+		System.out.println("New Game has been pressed.");
+		Boolean bOk= Dialog.show("Confirm New Game", "Are you sure you want to start a new game?", "Ok", "Cancel");
+	     if (bOk) {
+	    	 gw = new GameWorld();
+	    }
+		
 	}
 
 }

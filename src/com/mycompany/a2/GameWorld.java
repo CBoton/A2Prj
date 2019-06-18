@@ -90,6 +90,14 @@ public class GameWorld extends Observable implements IGameWorld{
 	public int getPlayerScore()	{
 		return playerScore;
 	}
+	/**
+	 *  Add Points to playerScore
+	 */
+	public void setPlayerScore(int playerScore)	{
+		playerScore += playerScore;
+		setChanged();
+		notifyObservers();
+	}
 	/** 
 	 * @return Int total playerShip missiles on board
 	 */
@@ -108,6 +116,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	public int getElapsedTime()	{
 		return clock;
 	}
+	public void incrementGameclock()	{
+		clock+=1;
+		setChanged();
+		notifyObservers();
+	}
 	/**
 	 * @return if Sound has been Enabled
 	 */
@@ -119,12 +132,23 @@ public class GameWorld extends Observable implements IGameWorld{
 	 */
 	public int getLivesRemaining()	{
 		return playerLives;
+		
 	}
 	/**
-	 * @param bool
+	 * decrement player lives
 	 */
-	public void setSound(boolean bool)	{
-		soundOn = bool;
+	public void decrementPlayerLives(int playerLives)	{
+		playerLives -= 1;
+		setChanged();
+		notifyObservers();
+	}
+	/**
+	 * Change each time called
+	 */
+	public void setSound()	{
+		soundOn = !soundOn;
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * adds an Asteroid object to the game world
@@ -133,6 +157,8 @@ public class GameWorld extends Observable implements IGameWorld{
 		Asteroid a = new Asteroid();
 		gameObj.add(a);
 		astObj++;	
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * adds a NonPlayerShip object to the world
@@ -141,6 +167,8 @@ public class GameWorld extends Observable implements IGameWorld{
 		NonPlayerShip nps = new NonPlayerShip();
 		gameObj.add(nps);
 		npship++;
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * adds a SpaceStation object to the world
@@ -155,6 +183,8 @@ public class GameWorld extends Observable implements IGameWorld{
 		{
 			System.out.println("A SpaceStation has already been created"); 
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * adds a PlayerShip object to the world
@@ -170,6 +200,8 @@ public class GameWorld extends Observable implements IGameWorld{
 		{
 			System.out.println("You can only have one playerShip at a time");
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	  /**
@@ -197,6 +229,8 @@ public class GameWorld extends Observable implements IGameWorld{
 			      }
 			  }
 			}
+		setChanged();
+		notifyObservers();
 		}
 	/**
 	 * adds a Missile object fired from the NonPlayerShip object into the world
@@ -222,6 +256,8 @@ public class GameWorld extends Observable implements IGameWorld{
 			      }
 			  }
 			}
+		setChanged();
+		notifyObservers();
 		}
 	/**
 	 * prints all of the objects that are currently in the GameWorld
@@ -263,6 +299,8 @@ public class GameWorld extends Observable implements IGameWorld{
 			    }
 			}
 		}
+		setChanged();
+		notifyObservers();
     }
 	/**
 	 * turns the PLayerShipMissileLauncher clockwise
@@ -280,6 +318,8 @@ public class GameWorld extends Observable implements IGameWorld{
 			    }
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * turns the PLayerShipMissileLauncher counterclockwise
@@ -297,6 +337,8 @@ public class GameWorld extends Observable implements IGameWorld{
 			    }
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * A PLayerShip's Missile hits and destroys an Asteroid, 
@@ -311,8 +353,10 @@ public class GameWorld extends Observable implements IGameWorld{
 			asteroidHit();
 			astObj--;
 			System.out.println("PlayerShip missile hit an Asteroid");
-			playerScore+=10;
+			setPlayerScore(10);
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -329,8 +373,10 @@ public class GameWorld extends Observable implements IGameWorld{
 			npsHit();
 			npship--;
 			System.out.println("PlayerShip missile hit NonPlayerShip");
-			playerScore+=5;
+			setPlayerScore(5);
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * A NonPlayerShip's Missile has hit the PlayerShip,
@@ -350,12 +396,14 @@ public class GameWorld extends Observable implements IGameWorld{
 		    if(playerLives == 0)	{
 		        System.out.println("GameOver");
 		        printDisplay();
-		        System.exit(0);
+		        quit();
 		    }
 		    else	{
-		            playerLives -= 1;
+		            decrementPlayerLives(1);
 		    }
 		}
+		setChanged();
+		notifyObservers();
 	    
 	}
 
@@ -376,12 +424,14 @@ public class GameWorld extends Observable implements IGameWorld{
 		    if(playerLives == 0)	{
 		        System.out.println("GameOver");
 		        printDisplay();
-		        System.exit(0);
+		        quit();
 		    }
 		    else	{
-		        playerLives -= 1;
+		    	decrementPlayerLives(1);
 		    }
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -402,12 +452,14 @@ public class GameWorld extends Observable implements IGameWorld{
 		    if(playerLives == 0)	{
 		        System.out.println("GameOver");
 		        printDisplay();
-		        System.exit(0);
+		        quit();
 		    }
 		    else	{
-		        playerLives -= 1;
+		    	decrementPlayerLives(1);
 		    }
 		}
+		setChanged();
+		notifyObservers();
 		
 	}
 	
@@ -422,7 +474,9 @@ public class GameWorld extends Observable implements IGameWorld{
 			asteroidHit();
 			astObj--;
 			System.out.println("An Asteroid collided with another Asteroid");
-		}    
+		}  
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * An Asteroid collides with a NonPlayerShip removing both from the world
@@ -439,6 +493,8 @@ public class GameWorld extends Observable implements IGameWorld{
 			npship--;
 			System.out.println("An asteroid has hit an NonPlayerShip");
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -458,6 +514,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 		
 	}
 	/**
@@ -476,6 +534,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -494,6 +554,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * Turns the PlayerShip left
@@ -511,6 +573,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	
 	/**
@@ -529,6 +593,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * MoveableObjects move(), missile fuel decreases or burns out
@@ -562,7 +628,9 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}			
 		}
-		clock++;
+		incrementGameclock();
+		setChanged();
+		notifyObservers();
 		System.out.println("Clock has ticked");
 		System.out.println("MoveableObjects has moved");
 	}
@@ -577,6 +645,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				gameObj.remove(x);
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * Cycle through collection to find first instance of NonPlayerShip and remove
@@ -589,6 +659,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				gameObj.remove(x);
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * Cycle through collection to find first instance of Asteroid and remove
@@ -602,6 +674,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				break;
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * Cycle through collection to find first instance of PlayerShip missile and remove
@@ -618,6 +692,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * Cycle through collection to find first instance of NonPlayerShip missile and remove
@@ -634,6 +710,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * Method to confirm before user quits.

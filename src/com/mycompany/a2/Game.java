@@ -7,10 +7,14 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import java.lang.String;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Button;
+import com.codename1.ui.CheckBox;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -29,13 +33,12 @@ public class Game extends Form	{
 		mv = new MapView();
 		pv = new PointsView();
 		commandMenu();
-		
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
 		this.addComponent(BorderLayout.CENTER, mv);
 		this.addComponent(BorderLayout.NORTH, pv);
-		
+		gw.notifyObservers();
 		gw.init();
 		this.show();
 		
@@ -49,7 +52,7 @@ public class Game extends Form	{
 		Container controlPanel = new Container();
 		controlPanel.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
 		controlPanel.getAllStyles().setBorder(Border.createLineBorder(2, ColorUtil.BLACK));
-		
+		 
 		/**
 		 * Add Asteroid
 		 */
@@ -161,140 +164,45 @@ public class Game extends Form	{
 		//TickCmd tickCmd = new TickCmd(gw);
 		
 ///////*****SIDE MENU******/////////
-		
+		Toolbar sideMenu = new Toolbar();
+		setToolbar(sideMenu);
 		/**
 		 * Quit the Game
 		 */
 		QuitCmd quitCmd = new QuitCmd(gw);
-		
 		/**
 		 * About
 		 */
 		AboutCmd aboutCmd = new AboutCmd(gw);
-		
 		/**
 		 * Sound Check Box
 		 */
 		SoundCheckCmd soundCheckCmd = new SoundCheckCmd(gw);
-		
+		CheckBox cBox = new CheckBox("Sound On/Off");
+		cBox.addPointerPressedListener(soundCheckCmd);
+		cBox.setCommand(soundCheckCmd);
+		cBox.putClientProperty("SideComponent", soundCheckCmd);
 		/**
 		 * New
 		 */
 		NewCmd newCmd = new NewCmd(gw);
-		
 		/**
 		 * Save
 		 */
 		SaveCmd saveCmd = new SaveCmd(gw);
-		
 		/**
 		 * Undo
 		 */
 		UndoCmd undoCmd = new UndoCmd(gw);
 		
+		sideMenu.addCommandToSideMenu(quitCmd);
+		sideMenu.addCommandToSideMenu(aboutCmd);
+		sideMenu.addCommandToSideMenu(soundCheckCmd);
+		sideMenu.addCommandToSideMenu(newCmd);
+		sideMenu.addCommandToSideMenu(saveCmd);
+		sideMenu.addCommandToSideMenu(undoCmd);
+		
 	}
 		
-	/*private void play()	{
-		Label myLabel=new Label("Enter a Command:");
-		this.addComponent(myLabel);
-		final TextField myTextField=new TextField();
-		this.addComponent(myTextField);
-		this.show();
-		myTextField.addActionListener(new ActionListener(){ 
-			 
-			public void actionPerformed(ActionEvent evt) { 
-			 
-				String sCommand=myTextField.getText().toString(); 
-				myTextField.clear(); 
-				if(!sCommand.isEmpty())	{
-				switch (sCommand.charAt(0))	{ 
-					case 'a': 
-						gw.addAsteroid();
-						break;
-					case 'y':
-						gw.addNPS();
-						break;
-					case 'b':
-						gw.addSpaceStation();
-						break;
-					case 's':
-						gw.addPS();
-						break;
-					case 'f':
-						gw.psFireMissile();
-						break;
-					case 'L':
-						gw.npsFireMissile();
-						break;
-					case 'm':
-						gw.printMap();
-						break;
-					case 'p':
-						gw.printDisplay();
-						break;
-					case '<':
-						gw.turnLauncherLeft();
-						break;
-					case '>':
-						gw.turnLauncherRight();
-						break;
-					case 'n':
-						gw.resupplyMissiles();
-						break;
-					case 'k':
-						gw.psMissileHitAsteroid();
-						break;
-					case 'e':
-						gw.psMissileHitNPS();
-						break;
-					case 'E':
-						gw.npsMissileHitPS();
-						break;
-					case 'c':
-						gw.psHitAsteroid();
-						break;
-					case 'h':
-						gw.psHitNPS();
-						break;
-					case 'x':
-						gw.twoAsteroidsCollide();
-						break;
-					case 'I':
-						gw.asteroidHitNPS();
-						break;
-					case 'j':
-						gw.hyperspaceJump();
-						break;
-					case 'i':
-						gw.increaseSpeed();
-						break;
-					case 'd':
-						gw.decreaseSpeed();
-						break;
-					case 'l':
-						gw.turnShipLeft();
-						break;
-					case 'r':
-						gw.turnShipRight();
-						break;
-					case 't':
-						gw.clockTicked();
-						break;
-					case 'q':
-						gw.quit();
-						Boolean bOk= Dialog.show("Confirm quit", "Are you sure you want to quit?", "Ok", "Cancel");
-					     if (bOk) {
-					          Display.getInstance().exitApplication();
-					    }
-					     break;
-				}
-				}
-			}
-		}
-		);
-		
-	}*/
-
-	
 }
 

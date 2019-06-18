@@ -9,7 +9,6 @@ import com.mycompany.a2.GameWorld;
  * @author Daniel Curtis and Curtis Botonis
  *
  */
-
 public class PSFireCmd extends Command{
 	private GameWorld gw;
 	

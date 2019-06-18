@@ -6,4 +6,5 @@ public interface IGameWorld {
 	public IIterator getIterator();
 	public int getElapsedTime();
 	public boolean isSoundEnabled();
+	public int getLivesRemaining();
 }
