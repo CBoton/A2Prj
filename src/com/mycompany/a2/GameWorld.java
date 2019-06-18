@@ -645,8 +645,6 @@ public class GameWorld extends Observable implements IGameWorld{
 				gameObj.remove(x);
 			}
 		}
-		setChanged();
-		notifyObservers();
 	}
 	/**
 	 * Cycle through collection to find first instance of NonPlayerShip and remove
@@ -659,8 +657,6 @@ public class GameWorld extends Observable implements IGameWorld{
 				gameObj.remove(x);
 			}
 		}
-		setChanged();
-		notifyObservers();
 	}
 	/**
 	 * Cycle through collection to find first instance of Asteroid and remove
@@ -674,8 +670,6 @@ public class GameWorld extends Observable implements IGameWorld{
 				break;
 			}
 		}
-		setChanged();
-		notifyObservers();
 	}
 	/**
 	 * Cycle through collection to find first instance of PlayerShip missile and remove
@@ -692,8 +686,6 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
-		setChanged();
-		notifyObservers();
 	}
 	/**
 	 * Cycle through collection to find first instance of NonPlayerShip missile and remove
@@ -710,8 +702,6 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
-		setChanged();
-		notifyObservers();
 	}
 	/**
 	 * Method to confirm before user quits.
