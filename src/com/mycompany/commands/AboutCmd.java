@@ -20,7 +20,7 @@ public class AboutCmd extends Command {
 	
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		System.out.println("About has been pressed.");
+		System.out.println("About has been pressed");
 	}
 
 }
