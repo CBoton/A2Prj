@@ -102,11 +102,14 @@ public class PlayerShip extends Ship implements ISteer	{
 	public void revolveLauncherLeft()	{
 		playerLauncher.steerLeft();
 	}
-	
+	/**
+	 * Return PlayerShip to Center of the screen
+	 */
 	public void returnToCenter()	{
 		Point2D center = new Point2D(512,384);
 		this.setLocation(center);
 	}
+	
 	public String toString()	{
 		String topOne = super.toString();
 		String thisOne = " Missile launcher dir=" + getLauncherDirection();
