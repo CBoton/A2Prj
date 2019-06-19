@@ -24,7 +24,8 @@ public class NewCmd extends Command {
 		System.out.println("New Game has been pressed.");
 		Boolean bOk= Dialog.show("Confirm New Game", "Are you sure you want to start a new game?", "Ok", "Cancel");
 	     if (bOk) {
-	    	 gw = new GameWorld();
+	    	 System.out.println("Restart the Simulator on Eclipse if you want to play again...");
+	    	 System.exit(0);
 	    }
 		
 	}
