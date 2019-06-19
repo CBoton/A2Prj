@@ -14,8 +14,7 @@ public abstract class Ship extends MoveableObject{
 	 * Adds missiles to a MoveableObject
 	 */
 	public Ship()	{
-		final int MAX_MISSILE_COUNT = 10;
-		this.missileCount = MAX_MISSILE_COUNT;
+		super();
 	}
 	/**
 	 * Reduces ships missile count by 1
@@ -33,9 +32,7 @@ public abstract class Ship extends MoveableObject{
 	 * @param newMissileCount Int value for new missile count
 	 */
 	public void setMissileCount(int newMissileCount)	{
-		if (newMissileCount <= 10) {
-		missileCount = newMissileCount;}
-		else System.out.println("Error: You can't have more than 10 missiles");
+		this.missileCount = newMissileCount;
 	}
 	
 	public String toString()	{

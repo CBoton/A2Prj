@@ -19,6 +19,7 @@ public class PlayerShip extends Ship implements ISteer	{
 		this.setColor(ColorUtil.GREEN);
 		this.setDirection(90);
 		this.setSpeed(0);
+		this.setMissileCount(10);
 		playerLauncher = new PlayerMissileLauncher(center, this.getSpeed(), this.getDirection());
 		System.out.println("A PlayerShip has been created");
 	}

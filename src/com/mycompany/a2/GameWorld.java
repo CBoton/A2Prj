@@ -124,6 +124,15 @@ public class GameWorld extends Observable implements IGameWorld{
 	/**
 	 * @return if Sound has been Enabled
 	 */
+	public String getSound()	{
+		if(soundOn)
+			return "ON";
+		else
+			return "OFF";
+	}
+	/**
+	 * @return if Sound has been Enabled
+	 */
 	public boolean isSoundEnabled()	{
 		return soundOn;
 	}
@@ -610,6 +619,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				if(ms.getFuelLevel()==0)	{
 					gameObj.remove(ms);
 					System.out.println("A missile has been removed");
+					break;
 				}
 				else	{
 					ms.decrementFuelLevel();

@@ -16,7 +16,7 @@ public class Game2 extends Form{
 	private GameWorld gw;
 	private MapView mv;
 	private PointsView pv;
-	private Toolbar tb;
+	private Toolbar sideMenu;
 	private Container cont;
 	
 	//Button declarations
@@ -168,45 +168,34 @@ public Game2() {
 	add(BorderLayout.WEST, cont);
 	gw.notifyObservers();
 	
-	Toolbar sideMenu = new Toolbar();
-	setToolbar(sideMenu);
-	/**
-	 * Quit the Game
-	 */
-	QuitCmd quitCmd = new QuitCmd(gw);
-	/**
-	 * About
-	 */
-	AboutCmd aboutCmd = new AboutCmd(gw);
-	/**
-	 * Sound Check Box
-	 */
-	SoundCheckCmd soundCheckCmd = new SoundCheckCmd(gw);
-	CheckBox cBox = new CheckBox("Sound On/Off");
-	cBox.addPointerPressedListener(soundCheckCmd);
-	cBox.setCommand(soundCheckCmd);
-	cBox.putClientProperty("SideComponent", soundCheckCmd);
-	/**
-	 * New
-	 */
-	NewCmd newCmd = new NewCmd(gw);
-	/**
-	 * Save
-	 */
-	SaveCmd saveCmd = new SaveCmd(gw);
-	/**
-	 * Undo
-	 */
-	UndoCmd undoCmd = new UndoCmd(gw);
-	
-	sideMenu.addCommandToSideMenu(quitCmd);
-	sideMenu.addCommandToSideMenu(aboutCmd);
-	sideMenu.addCommandToSideMenu(soundCheckCmd);
-	sideMenu.addCommandToSideMenu(newCmd);
-	sideMenu.addCommandToSideMenu(saveCmd);
-	sideMenu.addCommandToSideMenu(undoCmd);
-	
-	show();
+	//SIDE MENU//
+		sideMenu = new Toolbar();
+		setToolbar(sideMenu);
+		
+		//Quit the Game
+		QuitCmd quitCmd = new QuitCmd(gw);
+		//About
+		AboutCmd aboutCmd = new AboutCmd(gw);
+		//Sound Check Box
+		SoundCheckCmd soundCheckCmd = new SoundCheckCmd(gw);
+		CheckBox cBox = new CheckBox("Sound On/Off");
+		cBox.addChangeListener(soundCheckCmd);
+
+		//New
+		NewCmd newCmd = new NewCmd(gw);
+		//Save
+		SaveCmd saveCmd = new SaveCmd(gw);
+		//Undo
+		UndoCmd undoCmd = new UndoCmd(gw);
+		
+		sideMenu.addCommandToSideMenu(quitCmd);
+		sideMenu.addCommandToSideMenu(aboutCmd);
+		sideMenu.addComponentToSideMenu(cBox);
+		sideMenu.addCommandToSideMenu(newCmd);
+		sideMenu.addCommandToSideMenu(saveCmd);
+		sideMenu.addCommandToSideMenu(undoCmd);
+		
+		show();
 	
 }//end constructor
 }//end class

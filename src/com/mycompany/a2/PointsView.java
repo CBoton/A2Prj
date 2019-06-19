@@ -15,6 +15,7 @@ public class PointsView extends Container implements Observer {
 	private Label pointsValue;
 	private Label livesValue;
 	private Label clockValue;
+	private Label soundValue;
 	
 	
 	/**
@@ -23,18 +24,31 @@ public class PointsView extends Container implements Observer {
 	 */
 	public PointsView(GameWorld gw)	{
 	
-	Label pointsText = new Label("Points: ");
-	pointsValue = new Label("XXX");
-	pointsText.getAllStyles().setFgColor(ColorUtil.BLACK);
-	Label livesText = new Label("Lives: ");
-	livesValue = new Label("X");
-	livesText.getAllStyles().setFgColor(ColorUtil.BLACK);
-	Label clockText = new Label("Time: ");
-	clockValue = new Label("XXX");
-	clockText.getAllStyles().setFgColor(ColorUtil.BLACK);
-	
 	Container myContainer = new Container();
 	myContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+	
+	pointsValue = new Label("XXX");
+	Label pointsText = new Label("Points: ");
+	pointsValue.getAllStyles().setPadding(RIGHT, 3);
+	pointsText.getStyle().set3DText(true, true);
+	
+	
+	livesValue = new Label("X");
+	livesValue.getAllStyles().setPadding(RIGHT, 3);
+	Label livesText = new Label("Lives: ");
+	livesText.getStyle().set3DText(true, true);
+	
+	clockValue = new Label("XXX");
+	clockValue.getAllStyles().setPadding(RIGHT, 3);
+	Label clockText = new Label("Time: ");
+	clockText.getStyle().set3DText(true, true);
+
+	
+	
+	soundValue = new Label("XXX");
+	soundValue.getAllStyles().setPadding(RIGHT, 3);
+	Label soundText = new Label("Sound: ");
+	soundText.getStyle().set3DText(true, true);
 	
 	
 	
@@ -44,6 +58,8 @@ public class PointsView extends Container implements Observer {
 	myContainer.add(livesValue);
 	myContainer.add(clockText);
 	myContainer.add(clockValue);
+	myContainer.add(soundText);
+	myContainer.add(soundValue);
 	this.add(myContainer);
 		 
 		 
@@ -57,6 +73,7 @@ public class PointsView extends Container implements Observer {
 		pointsValue.setText("" + gw.getPlayerScore());
 		livesValue.setText("" + gw.getLivesRemaining());
 		clockValue.setText("" + gw.getElapsedTime());
+		soundValue.setText("" + gw.getSound());
 		
 		this.repaint();
 		

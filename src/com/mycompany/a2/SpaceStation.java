@@ -40,11 +40,8 @@ public class SpaceStation extends FixedObject {
 	/**
 	 * Turns blinkingLight on/off
 	 */
-	public void switchLightOnOff() {
-		if(blinkRate == 0)
+	public void switchLightOn() {
 			lightOn = true;
-		else
-			lightOn = false;
 	}
 	
 	public String toString()	{
