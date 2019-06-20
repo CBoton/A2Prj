@@ -60,27 +60,46 @@ public class PlayerShip extends Ship implements ISteer	{
 	 * Turns ship left 2 degrees
 	 */
 	public void steerLeft() {
-		if(this.getDirection() >= 2) {
-		this.setDirection(getDirection() - 2);
-		playerLauncher.steerLeft();
-		}
-		else {
-			this.setDirection(this.getDirection() + 358);
-			playerLauncher.steerLeft();
+		if(this.getDirection() >= 2) 
+		{
+			this.setDirection(getDirection() - 2);
+			if(getLauncherDirection() >= 2) 
+			{
+				playerLauncher.setDirection(getLauncherDirection() - 2);
 			}
+			else {playerLauncher.setDirection(getLauncherDirection() + 358);}
+		}
+		else 
+		{
+			this.setDirection(this.getDirection() + 358);
+			if(getLauncherDirection() >= 2) 
+			{
+				playerLauncher.setDirection(getLauncherDirection() - 2);
+			}
+				else {playerLauncher.setDirection(getLauncherDirection() + 358);}
+		}
 		System.out.println("The PlayerShip has turned left");
 	}
 	/**
 	 * Turns ship right 2 degrees
 	 */
 	public void steerRight() {
-		if (this.getDirection() <= 357) {
-		this.setDirection(getDirection() + 2);
-		playerLauncher.steerRight();
+		if (this.getDirection() <= 357) 
+		{
+			this.setDirection(getDirection() + 2);
+			if (getLauncherDirection() <= 357) 
+			{
+				playerLauncher.setDirection(getLauncherDirection() + 2);
+			}
+			else {playerLauncher.setDirection(getLauncherDirection() - 358);}
 		}
 		else {
 			this.setDirection(this.getDirection() - 358);
-			playerLauncher.steerRight();
+			if (getLauncherDirection() <= 357) 
+			{
+				playerLauncher.setDirection(getLauncherDirection() + 2);
+			}
+			else {playerLauncher.setDirection(getLauncherDirection() - 358);}
 		}
 		System.out.println("The PlayerShip has turned right");
 	}
