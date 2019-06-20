@@ -21,6 +21,10 @@ public class AboutCmd extends Command {
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		System.out.println("About has been pressed");
+		Boolean bOk= Dialog.show("CSC 133 - Asteroids", "Written by Curtis Botonis and Daniel Curtis", "Ok", "Cancel");
+	     if (bOk) {
+	    	 System.out.println("Thanks for playing...");
+	    }
 	}
 
 }

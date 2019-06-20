@@ -70,7 +70,7 @@ public class GameObjectCollection implements ICollection {
 		 * return the Object at the current index
 		 */
 		public GameObject getNext() {
-			index++; 
+			++index; 
 			return (GameObject) (theCollection.elementAt(index));
 		}
 

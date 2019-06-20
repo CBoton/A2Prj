@@ -20,12 +20,12 @@ public class Game2 extends Form{
 	private Container cont;
 	
 	//Button declarations
-	private AButton addAsteroidButton;
-	private AButton addNPSButton;
-	private AButton addStationButton;
-	private AButton addPSButton;
-	private AButton psShootButton;
-	private AButton jumpButton;
+	private GameButton addAsteroidButton;
+	private GameButton addNPSButton;
+	private GameButton addStationButton;
+	private GameButton addPSButton;
+	private GameButton psShootButton;
+	private GameButton jumpButton;
 	
 	
 	//Command Declarations
@@ -66,45 +66,46 @@ public Game2() {
 	setTitle("This is the Asteroids knock off");
 	
 	setLayout(new BorderLayout());
-	
+	//this.getStyle().setBgColor(ColorUtil.YELLOW);
 	add(BorderLayout.NORTH, pv);
 	gw.addObserver(pv);
 	add(BorderLayout.CENTER, mv);
 	gw.addObserver(mv);
+	
 	
 	Container cont = new Container();
 	cont.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
 	cont.getStyle().setBorder(Border.createLineBorder(3, ColorUtil.BLACK));
 	
 	//Add Asteroid
-	addAsteroidButton = new AButton("+ Asteroid");
+	addAsteroidButton = new GameButton("+ Asteroid");
 	addAsteroidCmd = new AddAsteroidCmd(gw);
 	addAsteroidButton.setCommand(addAsteroidCmd);
 	cont.add(addAsteroidButton);
 	//Add NonPlayerShip
-	addNPSButton = new AButton("+ NPS");
+	addNPSButton = new GameButton("+ NPS");
 	addNPSCmd = new AddNPSCmd(gw);
 	addNPSButton.setCommand(addNPSCmd);
 	cont.add(addNPSButton);
 	//Add PLayerShip
-	addPSButton = new AButton("+ PS");
+	addPSButton = new GameButton("+ PS");
 	addPSCmd = new AddPSCmd(gw);
 	addPSButton.setCommand(addPSCmd);
 	cont.add(addPSButton);
 	//Add SpaceStation
-	addStationButton = new AButton("+ Space Station");
+	addStationButton = new GameButton("+ Space Station");
 	addStationCmd = new AddStationCmd(gw);
 	addStationButton.setCommand(addStationCmd);
 	cont.add(addStationButton);
 	//Fire PlayerShipMissile
-	psShootButton = new AButton("PS Fire");
+	psShootButton = new GameButton("PS Fire");
 	psFireCmd = new PSFireCmd(gw);
 	psShootButton.setCommand(psFireCmd);
 	addKeyListener(-90, psFireCmd);
 	addKeyListener('f', psFireCmd);
 	cont.add(psShootButton);
 	// HyperSpace Jump
-	jumpButton = new AButton("Jump");
+	jumpButton = new GameButton("Jump");
 	jumpCmd = new JumpCmd(gw);
 	jumpButton.setCommand(jumpCmd);
 	addKeyListener('j', jumpCmd);
@@ -167,35 +168,34 @@ public Game2() {
 	
 	add(BorderLayout.WEST, cont);
 	gw.notifyObservers();
-	
 	//SIDE MENU//
-		sideMenu = new Toolbar();
-		setToolbar(sideMenu);
-		
-		//Quit the Game
-		QuitCmd quitCmd = new QuitCmd(gw);
-		//About
-		AboutCmd aboutCmd = new AboutCmd(gw);
-		//Sound Check Box
-		SoundCheckCmd soundCheckCmd = new SoundCheckCmd(gw);
-		CheckBox cBox = new CheckBox("Sound On/Off");
-		cBox.addChangeListener(soundCheckCmd);
+	sideMenu = new Toolbar();
+	setToolbar(sideMenu);
+	
+	//Quit the Game
+	QuitCmd quitCmd = new QuitCmd(gw);
+	//About
+	AboutCmd aboutCmd = new AboutCmd(gw);
+	//Sound Check Box
+	SoundCheckCmd soundCheckCmd = new SoundCheckCmd(gw);
+	CheckBox cBox = new CheckBox("Sound On/Off");
+	cBox.addActionListener(soundCheckCmd);
 
-		//New
-		NewCmd newCmd = new NewCmd(gw);
-		//Save
-		SaveCmd saveCmd = new SaveCmd(gw);
-		//Undo
-		UndoCmd undoCmd = new UndoCmd(gw);
-		
-		sideMenu.addCommandToSideMenu(quitCmd);
-		sideMenu.addCommandToSideMenu(aboutCmd);
-		sideMenu.addComponentToSideMenu(cBox);
-		sideMenu.addCommandToSideMenu(newCmd);
-		sideMenu.addCommandToSideMenu(saveCmd);
-		sideMenu.addCommandToSideMenu(undoCmd);
-		
-		show();
+	//New
+	NewCmd newCmd = new NewCmd(gw);
+	//Save
+	SaveCmd saveCmd = new SaveCmd(gw);
+	//Undo
+	UndoCmd undoCmd = new UndoCmd(gw);
+	
+	sideMenu.addCommandToSideMenu(quitCmd);
+	sideMenu.addCommandToSideMenu(aboutCmd);
+	sideMenu.addComponentToSideMenu(cBox);
+	sideMenu.addCommandToSideMenu(newCmd);
+	sideMenu.addCommandToSideMenu(saveCmd);
+	sideMenu.addCommandToSideMenu(undoCmd);
+	
+	show();
 	
 }//end constructor
 }//end class

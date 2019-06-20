@@ -10,7 +10,6 @@ import com.codename1.ui.layouts.BorderLayout;
 public class MapView extends Container implements Observer    {
     private TextField tf;
     
-
     /**
      * Constructor to add MapView Observer
      */

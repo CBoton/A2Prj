@@ -9,7 +9,6 @@ package com.mycompany.a2;
 public abstract class Ship extends MoveableObject{
 	
 	private int missileCount;
-	
 	/**
 	 * Adds missiles to a MoveableObject
 	 */

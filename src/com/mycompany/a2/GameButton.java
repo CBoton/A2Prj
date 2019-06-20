@@ -2,23 +2,23 @@ package com.mycompany.a2;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
+import com.codename1.ui.plaf.Border;
 /**
  * 
  * @author Daniel Curtis and Curtis Botonis
  *
  */
 public class GameButton extends Button{
-/**
- * 
- * @param txt 
- * Builds GameButtons to add to West Border
- */
-	public GameButton(String txt) {
-		super(txt);
-		this.getAllStyles().setBgColor(ColorUtil.BLACK);
-		this.getAllStyles().setFgColor(ColorUtil.GREEN);
-		this.getAllStyles().setPadding(5, 5, 5, 5);
-		this.getAllStyles().setBgTransparency(255);
+	
+	public GameButton(String buttonSays) {
+		super(buttonSays);
+		this.getAllStyles().setBgTransparency(200);
+		this.getUnselectedStyle().setBgColor(ColorUtil.YELLOW);
+		this.getAllStyles().setFgColor(ColorUtil.BLACK);
+		this.getAllStyles().setPadding(TOP, 5);
+		this.getAllStyles().setPadding(BOTTOM, 5);
+		this.getAllStyles().setBorder(Border.createLineBorder(1,
+				ColorUtil.BLACK));
 		
 	}
 

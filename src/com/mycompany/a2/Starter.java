@@ -51,7 +51,7 @@ public class Starter {
             current.show();
             return;
         }
-        new Game2();
+        new Game();
     }
 
     public void stop() {

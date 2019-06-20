@@ -17,10 +17,10 @@ public class NonPlayerShip extends Ship {
      * sets color and random size and instantiates a <issileLauncher
      */
 	public NonPlayerShip() {
+		setMissileCount(4);
 		missileLauncher = new MissileLauncher(this.getLocation(), this.getSpeed(), this.getDirection());
 		setColor(ColorUtil.CYAN);
 		size = 15 + GameObject.rand.nextInt(10);
-		this.setMissileCount(4);
 		System.out.println("A NonPlayerShip has been created");
 	}
 	/**

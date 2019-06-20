@@ -5,6 +5,7 @@ public interface IGameWorld {
 	public int getMissileCount();
 	public IIterator getIterator();
 	public int getElapsedTime();
-	public boolean isSoundEnabled();
+	public boolean getSoundToggle();
+	public String getSound();
 	public int getLivesRemaining();
 }

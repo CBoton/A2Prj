@@ -16,6 +16,7 @@ public class PointsView extends Container implements Observer {
 	private Label livesValue;
 	private Label clockValue;
 	private Label soundValue;
+	private Label missileValue;
 	
 	
 	/**
@@ -32,7 +33,6 @@ public class PointsView extends Container implements Observer {
 	pointsValue.getAllStyles().setPadding(RIGHT, 3);
 	pointsText.getStyle().set3DText(true, true);
 	
-	
 	livesValue = new Label("X");
 	livesValue.getAllStyles().setPadding(RIGHT, 3);
 	Label livesText = new Label("Lives: ");
@@ -43,14 +43,15 @@ public class PointsView extends Container implements Observer {
 	Label clockText = new Label("Time: ");
 	clockText.getStyle().set3DText(true, true);
 
-	
-	
 	soundValue = new Label("XXX");
 	soundValue.getAllStyles().setPadding(RIGHT, 3);
 	Label soundText = new Label("Sound: ");
 	soundText.getStyle().set3DText(true, true);
 	
-	
+	missileValue = new Label("XX");
+	missileValue.getAllStyles().setPadding(RIGHT, 3);
+	Label missileText = new Label("Missiles: ");
+	missileText.getStyle().set3DText(true, true);
 	
 	myContainer.add(pointsText);
 	myContainer.add(pointsValue);
@@ -60,6 +61,9 @@ public class PointsView extends Container implements Observer {
 	myContainer.add(clockValue);
 	myContainer.add(soundText);
 	myContainer.add(soundValue);
+	myContainer.add(missileText);
+	myContainer.add(missileValue);
+	
 	this.add(myContainer);
 		 
 		 
@@ -69,11 +73,12 @@ public class PointsView extends Container implements Observer {
 	 */
 	@Override
 	public void update(Observable observable, Object data) {
-		GameWorld gw = (GameWorld) observable;
-		pointsValue.setText("" + gw.getPlayerScore());
-		livesValue.setText("" + gw.getLivesRemaining());
-		clockValue.setText("" + gw.getElapsedTime());
-		soundValue.setText("" + gw.getSound());
+		GameWorldProxy myProxy = (GameWorldProxy) data;
+		pointsValue.setText("" + myProxy.getPlayerScore());
+		livesValue.setText("" + myProxy.getLivesRemaining());
+		clockValue.setText("" + myProxy.getElapsedTime());
+		soundValue.setText("" + myProxy.getSound());
+		missileValue.setText("" + myProxy.getMissileCount());
 		
 		this.repaint();
 		
