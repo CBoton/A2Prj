@@ -17,6 +17,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * Vector to store GameObjects
 	 */
 	private GameObjectCollection gameObj;
+	private GameObjectCollection deletes = new GameObjectCollection();
 	/**
 	 * int value of player lives
 	 */
@@ -614,18 +615,14 @@ public class GameWorld extends Observable implements IGameWorld{
 				IMove mObj = (IMove) x;
 				mObj.move(); 
 			}
-			if(x instanceof Missile)	{
-				Missile ms = (Missile) x;
-				if(ms.getFuelLevel()==0)	{
-					gameObj.remove(ms);
-					System.out.println("A missile has been removed");
-					break;
-				}
-				else	{
-					ms.decrementFuelLevel();
-					System.out.println("A missile has lost fuel");
-				}
+			if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0) {
+				deletes.add(x);
 			}
+			if(x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
+				((Missile) x).decrementFuelLevel();
+			}
+			
+			
 			if(x instanceof SpaceStation)	{
 				SpaceStation ss = (SpaceStation) x;
 				if(clock%ss.getBlinkRate() == 0)	{
@@ -634,10 +631,16 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}			
 		}
+		IIterator it = deletes.getIterator();
+        while (it.hasNext()) {
+                GameObject o = it.getNext();
+                gameObj.remove(o);
+        }
 		incrementGameclock();
 		System.out.println("Clock has ticked");
 		System.out.println("MoveableObjects has moved");
-	}
+        }
+	
 	/**
 	 * Cycle through collection to find instance of PlayerShip and remove
 	 */
@@ -677,6 +680,22 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 	}
+	
+	public void missileOof() {
+		 IIterator iterator = getIterator();
+	        while(iterator.hasNext())    {
+	            GameObject x = iterator.getNext();
+	            if(x instanceof Missile && ((Missile) x).getFuelLevel() == 0)  
+	            	{
+	            	deletes.add(x);
+	            	}
+	            else if(x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
+	            	((Missile) x).decrementFuelLevel(); 
+	            }
+	            
+	            }
+	        }
+	        
 	/**
 	 * Cycle through collection to find first instance of PlayerShip missile and remove
 	 */
