@@ -26,7 +26,8 @@ public class MapView extends Container implements Observer    {
      * @param obj - stores Collection of GameObjects
      */
     public void update(Observable obs, Object obj)    {
-    	((GameWorld)obs).printMap();
-        this.repaint();
+    	GameWorldProxy igw = (GameWorldProxy) obj;
+    	igw.printMap();
+    	this.repaint();
     }
 }
