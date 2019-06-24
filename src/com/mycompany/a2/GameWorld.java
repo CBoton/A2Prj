@@ -732,4 +732,18 @@ public class GameWorld extends Observable implements IGameWorld{
 	          Display.getInstance().exitApplication();
 	    }
 	}
+	/**
+	 * 
+	 * @param width to set GameWorld Width
+	 */
+	public void setGameWidth(double width) {
+		this.gameWidth = width;
+	}
+	/**
+	 * 
+	 * @param height to set GameWorld Height
+	 */
+	public void setGameHeight(double height) {
+		this.gameHeight = height;
+	}
 }

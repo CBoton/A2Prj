@@ -62,6 +62,9 @@ public Game() {
 	gw = new GameWorld();
 	mv = new MapView(gw);
 	pv = new PointsView(gw);
+	gw.setGameWidth(mv.getWidth());
+	gw.setGameHeight(mv.getHeight());
+	
 	gw.init();
 	setTitle("This is the Asteroids knock off");
 	
