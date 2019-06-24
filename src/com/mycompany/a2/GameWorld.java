@@ -625,7 +625,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			
 			if(x instanceof SpaceStation)	{
 				SpaceStation ss = (SpaceStation) x;
-				if(clock%ss.getBlinkRate() == 0)	{
+				if(clock%ss.getBlinkRate() == 0 && clock!=0)	{
 					ss.switchLightOn();
 					System.out.println("The light hast turned on");
 				}
