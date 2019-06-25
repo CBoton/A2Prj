@@ -18,7 +18,7 @@ public class PlayerShip extends Ship implements ISteer, IDrawable	{
 	 * Constructs a PlayerShip
 	 */
 	public PlayerShip()	{
-		Point2D center = new Point2D(h,w);
+		Point2D center = new Point2D(w,h);
 		this.setLocation(center);
 		this.setColor(ColorUtil.GREEN);
 		this.setDirection(90);

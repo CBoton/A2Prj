@@ -208,8 +208,8 @@ public Game() {
 	myTimer.schedule(200, true, this);
 	
 	show();
-	h = getHeight();
-	w = getWidth();
+	h = mv.getHeight();
+	w = mv.getWidth();
 	gw.setGameHeight(h);
 	gw.setGameWidth(w);
 	
