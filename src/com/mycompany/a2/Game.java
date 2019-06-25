@@ -208,4 +208,9 @@ public Game() {
 	show();
 	
 }//end constructor
+@Override
+public void run() {
+		gw.clockTicked();
+		mv.repaint();
+}
 }//end class
