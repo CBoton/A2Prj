@@ -28,7 +28,7 @@ public class Missile extends MoveableObject	implements IDrawable{
         this.fuelLevel = MAX_FUEL;
         this.setLocation(location);
         this.setColor(ColorUtil.MAGENTA);
-        this.setSpeed(speed + 2);
+        this.setSpeed(speed + 20);
         this.setDirection(dir);
         playerShip = ps;
         if(ps) { System.out.println("PlayerShip shot a missile!");}
@@ -71,7 +71,7 @@ public class Missile extends MoveableObject	implements IDrawable{
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
-		g.setColor(ColorUtil.MAGENTA);
+		g.setColor(this.getColor());
 		g.fillRect(x, y, 4, 10);
 	}
 	

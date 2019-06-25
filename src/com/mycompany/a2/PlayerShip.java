@@ -130,7 +130,7 @@ public class PlayerShip extends Ship implements ISteer, IDrawable	{
 	 * Return PlayerShip to Center of the screen
 	 */
 	public void returnToCenter()	{
-		Point2D center = new Point2D(512,384);
+		Point2D center = new Point2D(w,h);
 		this.setLocation(center);
 	}
 	
