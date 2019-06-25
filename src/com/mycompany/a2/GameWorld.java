@@ -2,9 +2,14 @@ package com.mycompany.a2;
 
 import java.util.Collection;
 import java.util.Observable;
-
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
+
+//BackgroundMusic:
+//Pay The Reaper by Darren-Curtis | https://soundcloud.com/desperate-measurez
+//Music promoted by https://www.free-stock-music.com
+//Creative Commons Attribution 3.0 Unported License
+//https://creativecommons.org/licenses/by/3.0/deed.en_US
 
 /**
  * @author Daniel Curtis and Curtis Botonis Generates and controls game world
