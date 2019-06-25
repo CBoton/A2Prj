@@ -73,20 +73,20 @@ public abstract class MoveableObject extends GameObject implements IMove {
 		deltaY = Math.round(deltaY * 10.0)/10.0;
 		oldLocX = Math.round(this.getXCoord());
 		oldLocY = Math.round(this.getYCoord());
-		if(deltaX+oldLocX > 1024.0)	{
-			newLocX = deltaX + oldLocX - 1024.0;
+		if(deltaX+oldLocX > GameWorld.getGameHeight())	{
+			newLocX = deltaX + oldLocX - GameWorld.getGameHeight();
 		}
 		else if (deltaX+oldLocX <= 0.0)	{
-			newLocX = deltaX + oldLocX + 1024.0;
+			newLocX = deltaX + oldLocX + GameWorld.getGameHeight();
 		}
 		else	{
 			newLocX = deltaX + oldLocX;
 		}
-		if(deltaY+oldLocY > 768.0) {
-			newLocY = deltaY + oldLocY - 768.0;
+		if(deltaY+oldLocY > GameWorld.getGameWidth()) {
+			newLocY = deltaY + oldLocY - GameWorld.getGameWidth();
 		}
 		else if (deltaY+oldLocY <= 0.0)	{
-			newLocY = deltaY + oldLocY + 768.0;
+			newLocY = deltaY + oldLocY + GameWorld.getGameWidth();
 		}
 		else	{
 			newLocY = deltaY + oldLocY;

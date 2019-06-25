@@ -1,5 +1,8 @@
 package com.mycompany.a2;
 
+import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 /**
  * @author Daniel Curtis and Curtis Botonis
@@ -8,7 +11,7 @@ import com.codename1.ui.geom.Point2D;
  * speed and direction determined by Player/NonPlayerShip.
  */
 
-public class PlayerMissileLauncher extends MissileLauncher implements ISteer {
+public class PlayerMissileLauncher extends MissileLauncher implements ISteer, IDrawable {
 	/**
 	 * @param location location of PlayerShip (passed from method call in GameWorld)
 	 * @param speed speed of PlayerShip (passed from method call in GameWorld)
@@ -39,5 +42,11 @@ public class PlayerMissileLauncher extends MissileLauncher implements ISteer {
 		}
 		else {this.setDirection(this.getDirection() - 358);}
 		System.out.println("Turned MissileLauncher right");
+	}
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
+		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
+		g.setColor(ColorUtil.BLACK);
+		g.drawLine(x, y, x+10, y+10);
 	}
 }

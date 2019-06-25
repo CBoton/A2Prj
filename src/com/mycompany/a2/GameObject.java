@@ -30,8 +30,8 @@ public abstract class GameObject	{
 	 *  set the default color of a gameObject to Gray.
 	 */
 	public GameObject()	{
-		final double MAX_WIDTH = 1024.0;
-		final double MAX_HEIGHT = 768.0;
+		final double MAX_WIDTH = GameWorld.getGameWidth();
+		final double MAX_HEIGHT = GameWorld.getGameHeight();
 		double myVal1 = Math.round((MAX_WIDTH*rand.nextDouble())*10) /10.0;
 		double myVal2 = Math.round((MAX_HEIGHT*rand.nextDouble())*10) /10.0;
 		location = new Point2D(myVal1,myVal2);
@@ -59,9 +59,8 @@ public abstract class GameObject	{
 	/**
 	 * @return the color in [R,G,B] format
 	 */
-	public String getColor()	{
-		return (" color=" + "[" + ColorUtil.red(color) + "," + 
-			ColorUtil.green(color) + "," + ColorUtil.blue(color) + "]"); 
+	public int getColor()	{
+		return color; 
 	}
 	/**
 	 * @param newCoord Point2D location
@@ -81,7 +80,8 @@ public abstract class GameObject	{
 	 * @return Returns a string with the location and color of the object
 	 */
 	public String toString()	{
-		String topOne = "loc=" + getLocation() + this.getColor();
+		String topOne = ("loc=" + getLocation() + " color=" + "[" + ColorUtil.red(color) + "," + 
+				ColorUtil.green(color) + "," + ColorUtil.blue(color) + "]");
 		return topOne;
 	}
 }

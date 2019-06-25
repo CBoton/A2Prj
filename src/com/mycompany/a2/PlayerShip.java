@@ -1,6 +1,8 @@
 package com.mycompany.a2;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 /**
  * @author Daniel Curtis and Curtis Botonis
@@ -8,13 +10,15 @@ import com.codename1.ui.geom.Point2D;
  * Instantiates a Player with location in center of map and color from GameObject,
  * speed and direction are 0 and 90. Also instantiates a PlayerMissileLauncher that lives/dies with the Ship.
  */
-public class PlayerShip extends Ship implements ISteer	{
+public class PlayerShip extends Ship implements ISteer, IDrawable	{
 	private PlayerMissileLauncher playerLauncher;
+	private double h = GameWorld.getGameHeight()/2;
+	private double w = GameWorld.getGameWidth()/2;
 	/**
 	 * Constructs a PlayerShip
 	 */
 	public PlayerShip()	{
-		Point2D center = new Point2D(512,384);
+		Point2D center = new Point2D(h,w);
 		this.setLocation(center);
 		this.setColor(ColorUtil.GREEN);
 		this.setDirection(90);
@@ -134,5 +138,11 @@ public class PlayerShip extends Ship implements ISteer	{
 		String topOne = super.toString();
 		String thisOne = " Missile launcher dir=" + getLauncherDirection();
 		return "PlayerShip: " + topOne+ thisOne;
+	}
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
+		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
+		g.setColor(this.getColor());
+		g.fillArc(x, y, 20, 20, 0, 360);
 	}
 }

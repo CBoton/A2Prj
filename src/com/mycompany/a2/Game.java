@@ -19,6 +19,8 @@ public class Game extends Form implements Runnable{
 	private PointsView pv;
 	private Toolbar sideMenu;
 	private Container cont;
+	private int h;
+	private int w;
 	
 	//Button declarations
 	private GameButton addAsteroidButton;
@@ -63,8 +65,8 @@ public Game() {
 	gw = new GameWorld();
 	mv = new MapView(gw);
 	pv = new PointsView(gw);
-	gw.setGameWidth(mv.getWidth());
-	gw.setGameHeight(mv.getHeight());
+	//gw.setGameWidth(mv.getWidth());
+	//gw.setGameHeight(mv.getHeight());
 	
 	gw.init();
 	setTitle("This is the Asteroids knock off");
@@ -77,7 +79,7 @@ public Game() {
 	gw.addObserver(mv);
 	
 	
-	Container cont = new Container();
+	cont = new Container();
 	cont.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
 	cont.getStyle().setBorder(Border.createLineBorder(3, ColorUtil.BLACK));
 	
@@ -206,6 +208,10 @@ public Game() {
 	myTimer.schedule(200, true, this);
 	
 	show();
+	h = getHeight();
+	w = getWidth();
+	gw.setGameHeight(h);
+	gw.setGameWidth(w);
 	
 }//end constructor
 @Override

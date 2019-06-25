@@ -1,13 +1,15 @@
 package com.mycompany.a2;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 /**
  * @author Daniel Curtis and Curtis Botonis,
  * Instantiates a NonPLayerShip and MissileLauncher that lives/dies with NonPlayerShip
  *
  */
 
-public class NonPlayerShip extends Ship {
+public class NonPlayerShip extends Ship implements IDrawable{
 
 	private int size;
 	private MissileLauncher missileLauncher;
@@ -46,6 +48,11 @@ public class NonPlayerShip extends Ship {
 		String thisOne = " size=" + getSize();
 		return "NonPlayerShip: " + topOne + thisOne;
 	}
-	
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
+		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
+		g.setColor(ColorUtil.MAGENTA);
+		g.fillArc(x, y, this.getSize(), this.getSize(), 0, 360);
+	}
 
 }

@@ -1,5 +1,8 @@
 package com.mycompany.a2;
 
+import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 /**
  * @author Daniel Curtis and Curtis Botonis
@@ -8,7 +11,7 @@ import com.codename1.ui.geom.Point2D;
  * 
  */
 
-public class MissileLauncher extends MoveableObject{
+public class MissileLauncher extends MoveableObject implements IDrawable{
 	
 	/**
 	 * @param location location of a Ship (passed from method call in GameWorld)
@@ -24,5 +27,11 @@ public class MissileLauncher extends MoveableObject{
 	public String toString()	{
 		String topOne = super.toString();
 		return topOne;
+	}
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
+		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
+		g.setColor(ColorUtil.BLACK);
+		g.drawLine(x, y, x+10, y+10);
 	}
 }

@@ -1,6 +1,8 @@
 package com.mycompany.a2;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 
 /**
  * @author Daniel Curtis and Curtis Botonis
@@ -8,7 +10,7 @@ import com.codename1.charts.util.ColorUtil;
  * Instantiates an Asteroid with random location and color from GameObject,
  * gets random speed and direction from MoveableObject
  */
-public class Asteroid extends MoveableObject {
+public class Asteroid extends MoveableObject implements IDrawable{
 	/**
 	 * int value for size of Asteroid
 	 */
@@ -49,4 +51,12 @@ public class Asteroid extends MoveableObject {
 		String thisOne = " size=" + getSize();
 		return "Asteroid: " + topOne + thisOne;
 	}
+	
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
+		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
+		g.setColor(ColorUtil.BLUE);
+		g.fillRect(x, y, this.getSize(), this.getSize());
+	}
+	
 }

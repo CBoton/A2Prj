@@ -6,12 +6,10 @@ import java.util.Observable;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 
-
 /**
- * @author Daniel Curtis and Curtis Botonis
- * Generates and controls game world
+ * @author Daniel Curtis and Curtis Botonis Generates and controls game world
  */
-public class GameWorld extends Observable implements IGameWorld{
+public class GameWorld extends Observable implements IGameWorld {
 	// Game data //
 	/**
 	 * Vector to store GameObjects
@@ -25,7 +23,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	/**
 	 * int value of players score
 	 */
-	private int playerScore; 
+	private int playerScore;
 	/**
 	 * int value of clock time - elapsedGameTime
 	 */
@@ -35,7 +33,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 */
 	private boolean pship = false;
 	/**
-	 * Tracks amount of NonPlayerShips  in the world.
+	 * Tracks amount of NonPlayerShips in the world.
 	 */
 	private int npship = 0;
 	/**
@@ -59,7 +57,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 */
 	private boolean station = false;
 	/**
-	 * Tracks width 
+	 * Tracks width
 	 */
 	private int width = 0;
 	/**
@@ -70,117 +68,134 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * Tracks if sound is On
 	 */
 	private boolean soundOn = false;
-	//METHODS
+	private static double gameWidth = getGameWidth();
+	private static double gameHeight = getGameHeight();
+
+	// METHODS
 	/**
 	 * Constructor instantiates a Vector to store Game Objects
 	 */
-	public GameWorld()	{
+	public GameWorld() {
 		gameObj = new GameObjectCollection();
 		this.init();
 	}
+
 	/**
-	 * initializes game variables to new game state 
+	 * initializes game variables to new game state
 	 */
-	public void init()	{
+	public void init() {
 		playerLives = 3;
 		playerScore = 0;
 		clock = 0;
 	}
+
 	/**
 	 * @return Int playerScore
 	 */
-	public int getPlayerScore()	{
+	public int getPlayerScore() {
 		return playerScore;
 	}
+
 	/**
-	 *  Add Points to playerScore
+	 * Add Points to playerScore
 	 */
-	public void setPlayerScore(int playerScore)	{
+	public void setPlayerScore(int playerScore) {
 		this.playerScore += playerScore;
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
-	/** 
+
+	/**
 	 * @return Int total playerShip missiles on board
 	 */
-	public int getMissileCount()	{
-		int count=0;
+	public int getMissileCount() {
+		int count = 0;
 		IIterator iter = getIterator();
 		GameObject x = null;
-		while(iter.hasNext())	{
+		while (iter.hasNext()) {
 			x = iter.getNext();
-			if(x instanceof PlayerShip)	{
+			if (x instanceof PlayerShip) {
 				PlayerShip ps = (PlayerShip) x;
 				count = ps.getMissileCount();
 			}
 		}
 		return count;
 	}
+
 	/**
-	 * get the Iterator 
+	 * get the Iterator
 	 */
-	public IIterator getIterator()	{
+	public IIterator getIterator() {
 		return gameObj.getIterator();
 	}
+
 	/**
 	 * @return totalElapsedTime
 	 */
-	public int getElapsedTime()	{
+	public int getElapsedTime() {
 		return clock;
 	}
-	public void incrementGameclock()	{
-		this.clock+=1;
+
+	public void incrementGameclock() {
+		this.clock += 1;
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * @return if Sound has been Enabled
 	 */
-	public String getSound()	{
-		if(soundOn)
+	public String getSound() {
+		if (soundOn)
 			return "ON";
 		else
 			return "OFF";
 	}
+
 	/**
 	 * @return total playerLives remaining in game
 	 */
-	public int getLivesRemaining()	{
+	public int getLivesRemaining() {
 		return playerLives;
-		
+
 	}
+
 	/**
 	 * decrement player lives
 	 */
-	public void decrementPlayerLives(int playerLives)	{
+	public void decrementPlayerLives(int playerLives) {
 		this.playerLives -= 1;
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * Change each time called
 	 */
-	public void setSound()	{
+	public void setSound() {
 		soundOn = !soundOn;
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * returns bool soundOn
 	 */
-	public boolean getSoundToggle()	{
+	public boolean getSoundToggle() {
 		return soundOn;
 	}
+
 	/**
 	 * adds an Asteroid object to the game world
 	 */
 	public void addAsteroid() {
 		Asteroid a = new Asteroid();
 		gameObj.add(a);
-		astObj++;	
+		astObj++;
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * adds a NonPlayerShip object to the world
 	 */
@@ -191,184 +206,191 @@ public class GameWorld extends Observable implements IGameWorld{
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * adds a SpaceStation object to the world
 	 */
-	public void addSpaceStation()	{
+	public void addSpaceStation() {
 		if (!station) {
-		SpaceStation ss = new SpaceStation();
-		gameObj.add(ss);
-		station = true;
-		}
-		else
-		{
-			System.out.println("A SpaceStation has already been created"); 
+			SpaceStation ss = new SpaceStation();
+			gameObj.add(ss);
+			station = true;
+		} else {
+			System.out.println("A SpaceStation has already been created");
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * adds a PlayerShip object to the world
 	 */
 	public void addPS() {
-		if(!pship)
-		{
+		if (!pship) {
 			PlayerShip ps = new PlayerShip();
 			gameObj.add(ps);
 			pship = true;
-		}
-		else
-		{
+		} else {
 			System.out.println("You can only have one playerShip at a time");
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
 
-	  /**
+	/**
 	 * adds a Missile object fired from the PlayerShip object into the world
 	 */
-	public void psFireMissile() { 
+	public void psFireMissile() {
 		IIterator theColl = getIterator();
-		if(!pship) {System.out.println("You can't shoot missiles without a ship");}
-		else	{
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("You can't shoot missiles without a ship");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-			      if (x instanceof PlayerShip)	{
-			          	ps = (PlayerShip) x;
-			      		if(ps.getMissileCount() > 0) { 
-			      			Missile msl = new Missile(ps.getLocation(),ps.getSpeed(), ps.getLauncherDirection(),pship); 
-			      			ps.decrementMissileCount();
-			      			gameObj.add(msl); 
-			      			misObj++;
-			      		}
-			      
-			      		else {
-			      			System.out.println("Error: No missiles remaining!"); 
-			      		}
-			      }
-			  }
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					if (ps.getMissileCount() > 0) {
+						Missile msl = new Missile(ps.getLocation(), ps.getSpeed(), ps.getLauncherDirection(), pship);
+						ps.decrementMissileCount();
+						gameObj.add(msl);
+						misObj++;
+					}
+
+					else {
+						System.out.println("Error: No missiles remaining!");
+					}
+				}
 			}
+		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
-		}
+	}
+
 	/**
 	 * adds a Missile object fired from the NonPlayerShip object into the world
 	 */
 	public void npsFireMissile() {
 		IIterator theColl = getIterator();
-		if(npship==0) {System.out.println("You can't shoot missiles without a ship");}
-		else	{
-			while(theColl.hasNext()) {
+		if (npship == 0) {
+			System.out.println("You can't shoot missiles without a ship");
+		} else {
+			while (theColl.hasNext()) {
 				NonPlayerShip nps = null;
 				GameObject x = theColl.getNext();
-			      if (x instanceof NonPlayerShip)	{
-			          nps = (NonPlayerShip) x;
-			          if(nps.getMissileCount() > 0) { 
-			        	  Missile msl = new Missile(nps.getLocation(),nps.getSpeed(), nps.getDirection(),false); 
-			        	  nps.setMissileCount(nps.getMissileCount() - 1);
-			        	  gameObj.add(msl); 
-			        	  misObj++;
-			          }			          
-			          else {
-			        	  System.out.println("Error: No missiles remaining!"); 
-			          }
-			      }
-			  }
+				if (x instanceof NonPlayerShip) {
+					nps = (NonPlayerShip) x;
+					if (nps.getMissileCount() > 0) {
+						Missile msl = new Missile(nps.getLocation(), nps.getSpeed(), nps.getDirection(), false);
+						nps.setMissileCount(nps.getMissileCount() - 1);
+						gameObj.add(msl);
+						misObj++;
+					} else {
+						System.out.println("Error: No missiles remaining!");
+					}
+				}
 			}
+		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
-		}
+	}
+
 	/**
 	 * prints all of the objects that are currently in the GameWorld
 	 */
-	public void printMap()	{
+	public void printMap() {
 		IIterator theColl = getIterator();
 		System.out.println("World Map: ");
 		while (theColl.hasNext()) {
-		    GameObject x = theColl.getNext();
-		    System.out.println(x.toString());
+			GameObject x = theColl.getNext();
+			System.out.println(x.toString());
 		}
 	}
-	
+
 	/**
 	 * prints the amount of players lives, their score, and clock time
 	 */
 	public void printDisplay() {
-        System.out.println("Playerlives: " + playerLives + " PlayerScore: " + playerScore + " Clock: " + clock);
-    }
-	
+		System.out.println("Playerlives: " + playerLives + " PlayerScore: " + playerScore + " Clock: " + clock);
+	}
+
 	/**
 	 * reloads PlayerSHips missile supply to 10
 	 */
 	public void resupplyMissiles() {
 		IIterator theColl = getIterator();
-		if(!pship) {System.out.println("Error: No PlayerShip to reload");}
-		else {
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip to reload");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-			    if (x instanceof PlayerShip)	{
-			          ps = (PlayerShip) x;
-			          if(ps.getMissileCount() < 10) {
-			        	  ps.reloadMissiles();
-			          }
-			          else	{
-			          		System.out.println("Error: Missiles already full");
-			          }
-			    }
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					if (ps.getMissileCount() < 10) {
+						ps.reloadMissiles();
+					} else {
+						System.out.println("Error: Missiles already full");
+					}
+				}
 			}
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
-    }
+	}
+
 	/**
 	 * turns the PLayerShipMissileLauncher clockwise
 	 */
 	public void turnLauncherRight() {
 		IIterator theColl = getIterator();
-		if(!pship) {System.out.println("Error: No PlayerShip means no missile launcher to turn");}
-		else {
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip means no missile launcher to turn");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-			    if (x instanceof PlayerShip)	{
-			          ps = (PlayerShip) x;
-			          ps.revolveLauncher();
-			    }
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					ps.revolveLauncher();
+				}
 			}
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * turns the PLayerShipMissileLauncher counterclockwise
 	 */
 	public void turnLauncherLeft() {
 		IIterator theColl = getIterator();
-		if(!pship) {System.out.println("Error: No PlayerShip means no missile launcher to turn");}
-		else {
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip means no missile launcher to turn");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-			    if (x instanceof PlayerShip)	{
-			          ps = (PlayerShip) x;
-			          ps.revolveLauncherLeft();
-			    }
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					ps.revolveLauncherLeft();
+				}
 			}
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
-	 * A PLayerShip's Missile hits and destroys an Asteroid, 
-	 * removing one of each from the game world
+	 * A PLayerShip's Missile hits and destroys an Asteroid, removing one of each
+	 * from the game world
 	 */
-	public void psMissileHitAsteroid()     {
-		if (misObj == 0) {System.out.println("Error: No missiles to explose Asteroids");}
-		else if(astObj == 0) {System.out.println("Error: There are no Asteroids to explode");}
-		else {
+	public void psMissileHitAsteroid() {
+		if (misObj == 0) {
+			System.out.println("Error: No missiles to explose Asteroids");
+		} else if (astObj == 0) {
+			System.out.println("Error: There are no Asteroids to explode");
+		} else {
 			psMissileHit();
 			misObj--;
 			asteroidHit();
@@ -379,14 +401,15 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 
 	/**
-	 * A PlayerShip's Missile has destroyed an NonPlayerShip,
-	 * Missile and NonPlayerShip removed from game,
-	 * player score + 10.
+	 * A PlayerShip's Missile has destroyed an NonPlayerShip, Missile and
+	 * NonPlayerShip removed from game, player score + 10.
 	 */
-	public void psMissileHitNPS()     {
-		if (misObj == 0) {System.out.println("Error: No missiles to explose NPS");}
-		else if(npship == 0) {System.out.println("Error: There are no NPS to explode");}
-		else {
+	public void psMissileHitNPS() {
+		if (misObj == 0) {
+			System.out.println("Error: No missiles to explose NPS");
+		} else if (npship == 0) {
+			System.out.println("Error: There are no NPS to explode");
+		} else {
 			psMissileHit();
 			misObj--;
 			npsHit();
@@ -395,107 +418,114 @@ public class GameWorld extends Observable implements IGameWorld{
 			setPlayerScore(5);
 		}
 	}
+
 	/**
-	 * A NonPlayerShip's Missile has hit the PlayerShip,
-	 * removing the PlayerShip from the world and removing one of 
-	 * the players lives.
+	 * A NonPlayerShip's Missile has hit the PlayerShip, removing the PlayerShip
+	 * from the world and removing one of the players lives.
 	 */
 	public void npsMissileHitPS() {
-		if (!pship) {System.out.println("Error: No PlayerShip to explode");}
-		else if(npship == 0) {System.out.println("Error: No NPS on the map");}
-		else if(npsMis == 0) {System.out.println("Error: The NPS hasn't shot any Missiles");}
-		else {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip to explode");
+		} else if (npship == 0) {
+			System.out.println("Error: No NPS on the map");
+		} else if (npsMis == 0) {
+			System.out.println("Error: The NPS hasn't shot any Missiles");
+		} else {
 			npsMissileHit();
 			npsMis--;
 			psHit();
-			pship=false;
+			pship = false;
 			System.out.println("NonPlayerShip missile hit PlayerShip");
-		    if(playerLives == 0)	{
-		        System.out.println("GameOver");
-		        printDisplay();
-		        quit();
-		    }
-		    else	{
-		            decrementPlayerLives(1);
-		    }
+			if (playerLives == 0) {
+				System.out.println("GameOver");
+				printDisplay();
+				quit();
+			} else {
+				decrementPlayerLives(1);
+			}
 		}
 	}
 
 	/**
-	 * The PlayerShip has collided with an Asteroid,
-	 * removing both from the game world and removing
-	 * a player life
+	 * The PlayerShip has collided with an Asteroid, removing both from the game
+	 * world and removing a player life
 	 */
 	public void psHitAsteroid() {
-		if (!pship) {System.out.println("Error: There is no ship on the map");}
-		else if (astObj == 0) {System.out.println("Error: There is no Asteroid on the map");}
-		else {
-		    psHit();
-		    pship=false;
-		    asteroidHit();
-		    astObj--;
-		    System.out.println("PlayerShip collided with an Asteroid");
-		    if(playerLives == 0)	{
-		        System.out.println("GameOver");
-		        printDisplay();
-		        quit();
-		    }
-		    else	{
-		    	decrementPlayerLives(1);
-		    }
+		if (!pship) {
+			System.out.println("Error: There is no ship on the map");
+		} else if (astObj == 0) {
+			System.out.println("Error: There is no Asteroid on the map");
+		} else {
+			psHit();
+			pship = false;
+			asteroidHit();
+			astObj--;
+			System.out.println("PlayerShip collided with an Asteroid");
+			if (playerLives == 0) {
+				System.out.println("GameOver");
+				printDisplay();
+				quit();
+			} else {
+				decrementPlayerLives(1);
+			}
 		}
 	}
 
 	/**
-	 * A PlayerShip collided with a NonPLayerShip,
-	 * removing the PlayerShip and NonPlayerShip from the world
-	 * and removing a player life
+	 * A PlayerShip collided with a NonPLayerShip, removing the PlayerShip and
+	 * NonPlayerShip from the world and removing a player life
 	 */
 	public void psHitNPS() {
-		
-		if (!pship) {System.out.println("Error: There is no ship on the map");}
-		else if (npship == 0) {System.out.println("Error: There is no NPS on the map");}
-		else {
-		    psHit();
-		    pship = false;
-		    npsHit();
-		    npship--;
-		    System.out.println("PlayerShip collided with a NonPlayerShip");
-		    if(playerLives == 0)	{
-		        System.out.println("GameOver");
-		        printDisplay();
-		        quit();
-		    }
-		    else	{
-		    	decrementPlayerLives(1);
-		    }
-		}	
+
+		if (!pship) {
+			System.out.println("Error: There is no ship on the map");
+		} else if (npship == 0) {
+			System.out.println("Error: There is no NPS on the map");
+		} else {
+			psHit();
+			pship = false;
+			npsHit();
+			npship--;
+			System.out.println("PlayerShip collided with a NonPlayerShip");
+			if (playerLives == 0) {
+				System.out.println("GameOver");
+				printDisplay();
+				quit();
+			} else {
+				decrementPlayerLives(1);
+			}
+		}
 	}
-	
+
 	/**
 	 * Two Asteroids collide removing both from the world
 	 */
 	public void twoAsteroidsCollide() {
-		if (astObj < 2) {System.out.println("Error: Less than two asteroids created");}
-		else {
+		if (astObj < 2) {
+			System.out.println("Error: Less than two asteroids created");
+		} else {
 			asteroidHit();
 			astObj--;
 			asteroidHit();
 			astObj--;
 			System.out.println("An Asteroid collided with another Asteroid");
-		}  
+		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * An Asteroid collides with a NonPlayerShip removing both from the world
 	 */
 	public void asteroidHitNPS() {
-		
-		if (astObj == 0) {System.out.println("Error: There are no Asteroids in the world");}
-		else if(npship == 0) {System.out.println("Error: There are no Asteroids in the world");}
 
-		else	{
+		if (astObj == 0) {
+			System.out.println("Error: There are no Asteroids in the world");
+		} else if (npship == 0) {
+			System.out.println("Error: There are no Asteroids in the world");
+		}
+
+		else {
 			asteroidHit();
 			astObj--;
 			npsHit();
@@ -509,35 +539,38 @@ public class GameWorld extends Observable implements IGameWorld{
 	 */
 	public void hyperspaceJump() {
 		IIterator theColl = getIterator();
-		if (!pship) {System.out.println("Error: No PlayerShip to speed up");}
-		else {
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip to speed up");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-				if (x instanceof PlayerShip)	{
-		          	ps = (PlayerShip) x;
-		          	ps.returnToCenter();	
-		          	System.out.println("Hyperspace...HOLD ON!");
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					ps.returnToCenter();
+					System.out.println("Hyperspace...HOLD ON!");
 				}
 			}
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
-		
+
 	}
+
 	/**
 	 * Increases the PlayerShips speed
 	 */
 	public void increaseSpeed() {
 		IIterator theColl = getIterator();
-		if (!pship) {System.out.println("Error: No PlayerShip to speed up");}
-		else {
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip to speed up");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-				if (x instanceof PlayerShip)	{
-		          	ps = (PlayerShip) x;
-		          	ps.increaseSpeed();				
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					ps.increaseSpeed();
 				}
 			}
 		}
@@ -550,200 +583,208 @@ public class GameWorld extends Observable implements IGameWorld{
 	 */
 	public void decreaseSpeed() {
 		IIterator theColl = getIterator();
-		if (!pship) {System.out.println("Error: No PlayerShip to slow down");}
-		else {
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip to slow down");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-				if (x instanceof PlayerShip)	{
-		          	ps = (PlayerShip) x;
-		          	ps.decreaseSpeed();				
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					ps.decreaseSpeed();
 				}
 			}
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
 	 * Turns the PlayerShip left
 	 */
 	public void turnShipLeft() {
 		IIterator theColl = getIterator();
-		if (!pship) {System.out.println("Error: No PlayerShip to turn left");}
-		else {
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip to turn left");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-				if (x instanceof PlayerShip)	{
-		          	ps = (PlayerShip) x;
-		          	ps.steerLeft();				
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					ps.steerLeft();
 				}
 			}
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
-	
+
 	/**
 	 * Turns the PlayerShip right
 	 */
 	public void turnShipRight() {
 		IIterator theColl = getIterator();
-		if (!pship) {System.out.println("Error: No PlayerShip to turn right");}
-		else {
-			while(theColl.hasNext()) {
+		if (!pship) {
+			System.out.println("Error: No PlayerShip to turn right");
+		} else {
+			while (theColl.hasNext()) {
 				PlayerShip ps = null;
 				GameObject x = theColl.getNext();
-				if (x instanceof PlayerShip)	{
-		          	ps = (PlayerShip) x;
-		          	ps.steerRight();				
+				if (x instanceof PlayerShip) {
+					ps = (PlayerShip) x;
+					ps.steerRight();
 				}
 			}
 		}
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
+
 	/**
-	 * MoveableObjects move(), missile fuel decreases or burns out
-	 * Space Station light blinks, gameClock increases
+	 * MoveableObjects move(), missile fuel decreases or burns out Space Station
+	 * light blinks, gameClock increases
 	 */
 	public void clockTicked() {
 		IIterator theColl = getIterator();
-		while(theColl.hasNext()) {
+		while (theColl.hasNext()) {
 			GameObject x = theColl.getNext();
-			if (x instanceof IMove) {     
+			if (x instanceof IMove) {
 				IMove mObj = (IMove) x;
-				mObj.move(); 
+				mObj.move();
 			}
 			if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0) {
 				deletes.add(x);
 			}
-			if(x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
+			if (x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
 				((Missile) x).decrementFuelLevel();
 			}
-			
-			
-			if(x instanceof SpaceStation)	{
+
+			if (x instanceof SpaceStation) {
 				SpaceStation ss = (SpaceStation) x;
-				if(clock%ss.getBlinkRate() == 0 && clock!=0)	{
+				if (clock % ss.getBlinkRate() == 0 && clock != 0) {
 					ss.switchLightOn();
 					System.out.println("The light hast turned on");
 				}
-			}			
+			}
 		}
 		IIterator it = deletes.getIterator();
-        while (it.hasNext()) {
-                GameObject o = it.getNext();
-                gameObj.remove(o);
-        }
+		while (it.hasNext()) {
+			GameObject o = it.getNext();
+			gameObj.remove(o);
+		}
 		incrementGameclock();
 		System.out.println("Clock has ticked");
 		System.out.println("MoveableObjects has moved");
-        }
-	
+	}
+
 	/**
 	 * Cycle through collection to find instance of PlayerShip and remove
 	 */
-	public void psHit()	{
+	public void psHit() {
 		IIterator iterator = getIterator();
-		while(iterator.hasNext())	{
+		while (iterator.hasNext()) {
 			GameObject x = iterator.getNext();
-			if(x instanceof PlayerShip)	{
+			if (x instanceof PlayerShip) {
 				gameObj.remove(x);
 				break;
 			}
 		}
 	}
+
 	/**
 	 * Cycle through collection to find first instance of NonPlayerShip and remove
 	 */
-	public void npsHit()	{
+	public void npsHit() {
 		IIterator iterator = getIterator();
-		while(iterator.hasNext())	{
+		while (iterator.hasNext()) {
 			GameObject x = iterator.getNext();
-			if(x instanceof NonPlayerShip)	{
+			if (x instanceof NonPlayerShip) {
 				gameObj.remove(x);
 				break;
 			}
 		}
 	}
+
 	/**
 	 * Cycle through collection to find first instance of Asteroid and remove
 	 */
-	public void asteroidHit()	{
+	public void asteroidHit() {
 		IIterator iterator = getIterator();
-		while(iterator.hasNext())	{
+		while (iterator.hasNext()) {
 			GameObject x = iterator.getNext();
-			if(x instanceof Asteroid)	{
+			if (x instanceof Asteroid) {
 				gameObj.remove(x);
 				break;
 			}
 		}
 	}
-	
+
 	public void missileOof() {
-		 IIterator iterator = getIterator();
-	        while(iterator.hasNext())    {
-	            GameObject x = iterator.getNext();
-	            if(x instanceof Missile && ((Missile) x).getFuelLevel() == 0)  
-	            	{
-	            	deletes.add(x);
-	            	}
-	            else if(x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
-	            	((Missile) x).decrementFuelLevel(); 
-	            }
-	            
-	            }
-	        }
-	        
+		IIterator iterator = getIterator();
+		while (iterator.hasNext()) {
+			GameObject x = iterator.getNext();
+			if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0) {
+				deletes.add(x);
+			} else if (x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
+				((Missile) x).decrementFuelLevel();
+			}
+
+		}
+	}
+
 	/**
-	 * Cycle through collection to find first instance of PlayerShip missile and remove
+	 * Cycle through collection to find first instance of PlayerShip missile and
+	 * remove
 	 */
-	public void psMissileHit()    {
-        IIterator iterator = getIterator();
-        while(iterator.hasNext())    {
-            GameObject x = iterator.getNext();
-            if(x instanceof Missile && ((Missile) x).getMissileType())    {
-            	gameObj.remove(x);
-                break;
-            }
-        }
-    }
+	public void psMissileHit() {
+		IIterator iterator = getIterator();
+		while (iterator.hasNext()) {
+			GameObject x = iterator.getNext();
+			if (x instanceof Missile && ((Missile) x).getMissileType()) {
+				gameObj.remove(x);
+				break;
+			}
+		}
+	}
+
 	/**
-	 * Cycle through collection to find first instance of NonPlayerShip missile and remove
+	 * Cycle through collection to find first instance of NonPlayerShip missile and
+	 * remove
 	 */
-	public void npsMissileHit()    {
-        IIterator iterator = getIterator();
-        while(iterator.hasNext())    {
-            GameObject x = iterator.getNext();
-            if(x instanceof Missile && !((Missile) x).getMissileType())    {    
-            	gameObj.remove(x);
-            	break;
-                
-            }
-        }
-    }
+	public void npsMissileHit() {
+		IIterator iterator = getIterator();
+		while (iterator.hasNext()) {
+			GameObject x = iterator.getNext();
+			if (x instanceof Missile && !((Missile) x).getMissileType()) {
+				gameObj.remove(x);
+				break;
+
+			}
+		}
+	}
+
 	/**
 	 * Method to confirm before user quits.
 	 */
-	public void quit()	{
-		Boolean bOk= Dialog.show("Confirm quit", "Are you sure you want to quit?", "Ok", "Cancel");
-	     if (bOk) {
-	          Display.getInstance().exitApplication();
-	    }
+	public void quit() {
+		Boolean bOk = Dialog.show("Confirm quit", "Are you sure you want to quit?", "Ok", "Cancel");
+		if (bOk) {
+			Display.getInstance().exitApplication();
+		}
 	}
 	/**
 	 * 
 	 * @param width to set GameWorld Width
 	 */
-	public void setGameWidth(double width) {
-		this.gameWidth = width;
-	}
-	/**
-	 * 
-	 * @param height to set GameWorld Height
-	 */
-	public void setGameHeight(double height) {
-		this.gameHeight = height;
-	}
+	
+	  public void setGameWidth(int width) { gameWidth = width; }
+	 /**
+		 * 
+		 * @param height to set GameWorld Height
+		 */
+	public void setGameHeight(int height) { gameHeight = height; }
+	public static double getGameHeight() {return gameHeight;}
+	public static double getGameWidth() {return gameWidth;}
+			 
 }

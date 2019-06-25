@@ -1,6 +1,8 @@
 package com.mycompany.a2;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 
 /**
@@ -10,7 +12,7 @@ import com.codename1.ui.geom.Point2D;
  * speed and direction determined by Player/NonPlayerShip.
  */
 
-public class Missile extends MoveableObject	{
+public class Missile extends MoveableObject	implements IDrawable{
 	private int fuelLevel;
 	private boolean playerShip;
 	
@@ -66,6 +68,13 @@ public class Missile extends MoveableObject	{
 		
 		return topOne + thisOne;
 	}
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
+		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
+		g.setColor(ColorUtil.MAGENTA);
+		g.fillRect(x, y, 4, 10);
+	}
+	
 		
 	
 }
