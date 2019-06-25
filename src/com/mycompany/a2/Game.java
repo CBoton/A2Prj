@@ -9,9 +9,10 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
+import com.codename1.ui.util.UITimer;
 import com.mycompany.commands.*;
 
-public class Game extends Form{
+public class Game extends Form implements Runnable{
 	
 	private GameWorld gw;
 	private MapView mv;
@@ -199,6 +200,10 @@ public Game() {
 	sideMenu.addCommandToSideMenu(newCmd);
 	sideMenu.addCommandToSideMenu(saveCmd);
 	sideMenu.addCommandToSideMenu(undoCmd);
+	
+	///Game Timer
+	UITimer myTimer = new UITimer (this);
+	myTimer.schedule(200, true, this);
 	
 	show();
 	

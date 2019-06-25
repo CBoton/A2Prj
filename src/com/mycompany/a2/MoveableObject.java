@@ -56,7 +56,7 @@ public abstract class MoveableObject extends GameObject implements IMove {
 	 */
 	public void move()	{
 		int theta = this.getDirection();
-		double oldLocX, oldLocY;
+		double oldLocX, oldLocY, newLocX, newLocY;
 		double deltaX = 0.0;
 		double deltaY = 0.0;
 		if(theta == 0 || theta == 180)	{
@@ -73,8 +73,26 @@ public abstract class MoveableObject extends GameObject implements IMove {
 		deltaY = Math.round(deltaY * 10.0)/10.0;
 		oldLocX = Math.round(this.getXCoord());
 		oldLocY = Math.round(this.getYCoord());
+		if(deltaX+oldLocX > 1024.0)	{
+			newLocX = deltaX + oldLocX - 1024.0;
+		}
+		else if (deltaX+oldLocX <= 0.0)	{
+			newLocX = deltaX + oldLocX + 1024.0;
+		}
+		else	{
+			newLocX = deltaX + oldLocX;
+		}
+		if(deltaY+oldLocY > 768.0) {
+			newLocY = deltaY + oldLocY - 768.0;
+		}
+		else if (deltaY+oldLocY <= 0.0)	{
+			newLocY = deltaY + oldLocY + 768.0;
+		}
+		else	{
+			newLocY = deltaY + oldLocY;
+		}
 		
-		Point2D newLoc = new Point2D(deltaX+oldLocX,deltaY+oldLocY);
+		Point2D newLoc = new Point2D(newLocX,newLocY);
 		
 		this.setLocation(newLoc);
 	}
