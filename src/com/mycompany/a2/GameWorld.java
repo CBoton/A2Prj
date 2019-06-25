@@ -186,7 +186,6 @@ public class GameWorld extends Observable implements IGameWorld {
 	public boolean getSoundToggle() {
 		return soundOn;
 	}
-
 	/**
 	 * adds an Asteroid object to the game world
 	 */
