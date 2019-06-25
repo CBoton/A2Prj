@@ -87,6 +87,8 @@ public class GameWorld extends Observable implements IGameWorld {
 		playerLives = 3;
 		playerScore = 0;
 		clock = 0;
+		BgSound bg = new BgSound("darren-curtis-pay-the-reaper.mp3");
+		bg.play();
 	}
 
 	/**
