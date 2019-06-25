@@ -252,9 +252,11 @@ public class GameWorld extends Observable implements IGameWorld {
 				if (x instanceof PlayerShip) {
 					ps = (PlayerShip) x;
 					if (ps.getMissileCount() > 0) {
+						Sound shipFireMissile = new Sound("asteroids-ship-shoot.wav"); 
 						Missile msl = new Missile(ps.getLocation(), ps.getSpeed(), ps.getLauncherDirection(), pship);
 						ps.decrementMissileCount();
 						gameObj.add(msl);
+						shipFireMissile.play();
 						misObj++;
 					}
 
@@ -282,9 +284,11 @@ public class GameWorld extends Observable implements IGameWorld {
 				if (x instanceof NonPlayerShip) {
 					nps = (NonPlayerShip) x;
 					if (nps.getMissileCount() > 0) {
+						Sound shipFireMissile = new Sound("asteroids-ship-shoot.wav");
 						Missile msl = new Missile(nps.getLocation(), nps.getSpeed(), nps.getDirection(), false);
 						nps.setMissileCount(nps.getMissileCount() - 1);
 						gameObj.add(msl);
+						shipFireMissile.play();
 						misObj++;
 					} else {
 						System.out.println("Error: No missiles remaining!");
@@ -353,6 +357,8 @@ public class GameWorld extends Observable implements IGameWorld {
 				GameObject x = theColl.getNext();
 				if (x instanceof PlayerShip) {
 					ps = (PlayerShip) x;
+					Sound turnLauncher = new Sound("tagrunt.wav");
+			        turnLauncher.play();
 					ps.revolveLauncher();
 				}
 			}
@@ -374,6 +380,8 @@ public class GameWorld extends Observable implements IGameWorld {
 				GameObject x = theColl.getNext();
 				if (x instanceof PlayerShip) {
 					ps = (PlayerShip) x;
+					Sound turnLauncher = new Sound("tagrunt.wav");
+			        turnLauncher.play();
 					ps.revolveLauncherLeft();
 				}
 			}
@@ -769,6 +777,8 @@ public class GameWorld extends Observable implements IGameWorld {
 	 * Method to confirm before user quits.
 	 */
 	public void quit() {
+		Sound quitSound = new Sound("priceiswrong.mp3");
+		quitSound.play();
 		Boolean bOk = Dialog.show("Confirm quit", "Are you sure you want to quit?", "Ok", "Cancel");
 		if (bOk) {
 			Display.getInstance().exitApplication();
