@@ -144,5 +144,6 @@ public class PlayerShip extends Ship implements ISteer, IDrawable	{
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
 		g.setColor(this.getColor());
 		g.fillArc(x, y, 20, 20, 0, 360);
+		playerLauncher.draw(g, pCmpRelPrnt);
 	}
 }

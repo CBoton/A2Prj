@@ -1,6 +1,8 @@
 package com.mycompany.a2;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 
 /**
  * @author Daniel Curtis and Curtis Botonis
@@ -8,7 +10,7 @@ import com.codename1.charts.util.ColorUtil;
  */
 @SuppressWarnings("unused")
 
-public class SpaceStation extends FixedObject {
+public class SpaceStation extends FixedObject implements IDrawable{
 	private int blinkRate;
 	private boolean lightOn;
 	
@@ -19,7 +21,7 @@ public class SpaceStation extends FixedObject {
 		final int MAX_BLINK_RATE = 6;
 		blinkRate = GameObject.rand.nextInt(MAX_BLINK_RATE) + 1;
 		lightOn = false;
-		setColor(ColorUtil.LTGRAY);
+		setColor(ColorUtil.WHITE);
 		System.out.println("Space Station has been added");
 	}
 	/**
@@ -44,9 +46,26 @@ public class SpaceStation extends FixedObject {
 		lightOn = true;
 	}
 	
+	public void switchLightOff() {
+		lightOn = false;
+	}
 	public String toString()	{
 		String topOne = super.toString(); 
 		String thisOne = " rate=" + blinkRate;
 		return "Station: " + topOne + thisOne; 
+	}
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
+		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
+		int xpoints[] =  {x-8, x-16, x-8, x+8, x+16, x+8};
+		int ypoints[] = {y+8, y, y-8, y-8, y, y+8};
+		int npoints = 6;
+		g.setColor(this.getColor());
+		if (lightOn) {
+			g.fillPolygon(xpoints, ypoints, npoints);
+		}
+		else {
+			g.drawPolygon(xpoints, ypoints, npoints);
+		}
 	}
 }

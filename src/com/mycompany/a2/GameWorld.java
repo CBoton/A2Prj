@@ -294,7 +294,7 @@ public class GameWorld extends Observable implements IGameWorld {
 						nps.setMissileCount(nps.getMissileCount() - 1);
 						gameObj.add(msl);
 						shipFireMissile.play();
-						misObj++;
+						npsMis++;
 					} else {
 						System.out.println("Error: No missiles remaining!");
 					}
@@ -669,17 +669,22 @@ public class GameWorld extends Observable implements IGameWorld {
 			}
 			if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0) {
 				deletes.add(x);
+				if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0 && ((Missile) x).getMissileType() == true) {misObj--; System.out.println("mis died" + misObj);}
+				if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0 && ((Missile) x).getMissileType() == false) {npsMis--;System.out.println("mis died" + npsMis);}
+
 			}
 			if (x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
 				((Missile) x).decrementFuelLevel();
 			}
+			
 
 			if (x instanceof SpaceStation) {
 				SpaceStation ss = (SpaceStation) x;
 				if (clock % ss.getBlinkRate() == 0 && clock != 0) {
 					ss.switchLightOn();
-					System.out.println("The light hast turned on");
+					//System.out.println("The light hast turned on");
 				}
+				else {ss.switchLightOff();  }
 			}
 		}
 		IIterator it = deletes.getIterator();
@@ -688,8 +693,8 @@ public class GameWorld extends Observable implements IGameWorld {
 			gameObj.remove(o);
 		}
 		incrementGameclock();
-		System.out.println("Clock has ticked");
-		System.out.println("MoveableObjects has moved");
+		//System.out.println("Clock has ticked");
+		//System.out.println("MoveableObjects has moved");
 	}
 
 	/**
@@ -740,10 +745,11 @@ public class GameWorld extends Observable implements IGameWorld {
 			GameObject x = iterator.getNext();
 			if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0) {
 				deletes.add(x);
-			} else if (x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
+			}
+			else if (x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
 				((Missile) x).decrementFuelLevel();
 			}
-
+			
 		}
 	}
 
