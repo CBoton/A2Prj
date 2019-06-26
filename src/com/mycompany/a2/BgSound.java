@@ -27,14 +27,13 @@ public class BgSound implements Runnable{
 	public void play(){ m.play(); }
 	//continue playing from where we have left off
 	//entered when media has finished playing
-	public void run() 
-	{
-		//start playing from time zero (beginning of the sound file)
-		while(m.getTime()>0){ 
-			m.setTime(0);
-			m.play();
+	//entered when media has finished playing
+		public void run() 
+		{
+			//start playing from time zero (beginning of the sound file)
+				m.setTime(0);
+				m.play();
 		}
-	}
 }
 
 	
