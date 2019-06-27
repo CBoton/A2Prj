@@ -37,4 +37,10 @@ public class MissileLauncher extends MoveableObject implements IDrawable{
 		g.setColor(ColorUtil.BLACK);
 		g.drawLine(x, y, (int)(x+(25*newX2)), (int)(y+(25 * newY2)));
 	}
+
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -42,7 +42,11 @@ public class PlayerMissileLauncher extends MissileLauncher implements ISteer, ID
 		}
 		else {this.setDirection(this.getDirection() - 358);}
 		System.out.println("Turned MissileLauncher right");
+		
 	}
+	
+	
+	
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());

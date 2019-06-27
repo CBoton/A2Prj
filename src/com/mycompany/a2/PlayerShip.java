@@ -10,10 +10,11 @@ import com.codename1.ui.geom.Point2D;
  * Instantiates a Player with location in center of map and color from GameObject,
  * speed and direction are 0 and 90. Also instantiates a PlayerMissileLauncher that lives/dies with the Ship.
  */
-public class PlayerShip extends Ship implements ISteer, IDrawable	{
+public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 	private PlayerMissileLauncher playerLauncher;
 	private double h = GameWorld.getGameHeight()/2;
 	private double w = GameWorld.getGameWidth()/2;
+	private boolean setRemove = false;
 	/**
 	 * Constructs a PlayerShip
 	 */
@@ -147,5 +148,66 @@ public class PlayerShip extends Ship implements ISteer, IDrawable	{
 		g.fillArc(x - 25, y - 25, 50, 50, 0, 360);
 		playerLauncher.setLocation(this.getLocation());
 		playerLauncher.draw(g, pCmpRelPrnt);
+	}
+	@Override
+	public boolean collidesWith(ICollider otherObj) {
+		
+		boolean collision = false;
+		double thisX = this.getLocation().getX();
+		double thisY = this.getLocation().getY();
+		
+		double thatX = ((GameObject)otherObj).getLocation().getX();
+		double thatY = ((GameObject)otherObj).getLocation().getY();
+		
+		double dsqr = ((thisX - thatX)*(thisX - thatX))  + ((thisY - thatY)*(thisY - thatY));
+		
+		
+		int rad1= this.getSize() / 2;
+		int rad2= ((GameObject)otherObj).getSize() / 2;
+		
+		int radSqr= ((rad1+rad2)*(rad1+rad2));
+		
+		if (dsqr <= radSqr) { collision = true ; }
+		
+		return collision;
+	}
+	@Override
+	public void handleCollision(ICollider otherObj){
+		
+			if (otherObj instanceof Asteroid)
+			{
+				this.setRemove();
+				otherObj.setRemove();
+				
+			}
+			else if (otherObj instanceof NonPlayerShip)
+			{
+				this.setRemove();
+				otherObj.setRemove();
+			}
+			
+			else if (otherObj instanceof SpaceStation)
+			{
+				this.reloadMissiles();
+				
+			}
+			
+		
+		}
+	
+
+	@Override
+	public void setRemove() {
+		setRemove = true;
+		
+	}
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return 100;
+	}
+	@Override
+	public boolean getRemove() {
+		return setRemove;
 	}
 }

@@ -10,11 +10,12 @@ import com.codename1.ui.geom.Point;
  * Instantiates an Asteroid with random location and color from GameObject,
  * gets random speed and direction from MoveableObject
  */
-public class Asteroid extends MoveableObject implements IDrawable{
+public class Asteroid extends MoveableObject implements IDrawable, ICollider{
 	/**
 	 * int value for size of Asteroid
 	 */
 	private int size;
+	private boolean setRemove = false;
 	
 	/**
 	 * Default Asteroid constructor, gets location, speed, and direction from parent
@@ -57,6 +58,62 @@ public class Asteroid extends MoveableObject implements IDrawable{
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
 		g.setColor(ColorUtil.BLUE);
 		g.fillRect(x, y, this.getSize(), this.getSize());
+	}
+	@Override
+	public boolean collidesWith(ICollider otherObj) {
+		
+		boolean collision = false;
+		double thisX = this.getLocation().getX();
+		double thisY = this.getLocation().getY();
+		
+		double thatX = ((GameObject)otherObj).getLocation().getX();
+		double thatY = ((GameObject)otherObj).getLocation().getY();
+		
+		double dsqr = ((thisX - thatX)*(thisX - thatX))  + ((thisY - thatY)*(thisY - thatY));
+		
+		
+		int rad1= this.getSize() / 2;
+		int rad2= ((GameObject)otherObj).getSize() / 2;
+		
+		int radSqr= ((rad1+rad2)*(rad1+rad2));
+		
+		if (dsqr <= radSqr) { collision = true ; }
+		
+		return collision;
+	}
+	@Override
+	public void handleCollision(ICollider otherObj) {
+		
+		if (otherObj instanceof Asteroid)
+		{
+			this.setRemove();
+			otherObj.setRemove();
+			
+		}
+		else if (otherObj instanceof NonPlayerShip)
+		{
+			this.setRemove();
+			otherObj.setRemove();
+		}
+		else if (otherObj instanceof PlayerShip)
+		{
+			this.setRemove();
+			otherObj.setRemove();
+		}
+		else if (otherObj instanceof Missile)
+		{
+			this.setRemove();
+			otherObj.setRemove();
+		}
+	}
+	@Override
+	public void setRemove() {
+		setRemove = true;
+		
+	}
+	@Override
+	public boolean getRemove() {
+		return setRemove;
 	}
 	
 }

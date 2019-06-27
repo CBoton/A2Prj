@@ -84,4 +84,5 @@ public abstract class GameObject	{
 				ColorUtil.green(color) + "," + ColorUtil.blue(color) + "]");
 		return topOne;
 	}
+	public abstract int getSize();
 }

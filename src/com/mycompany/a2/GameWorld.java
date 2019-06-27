@@ -2,6 +2,8 @@ package com.mycompany.a2;
 
 import java.util.Collection;
 import java.util.Observable;
+import java.util.Vector;
+
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 
@@ -21,6 +23,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	 */
 	private GameObjectCollection gameObj;
 	private GameObjectCollection deletes = new GameObjectCollection();
+
 	/**
 	 * int value of player lives
 	 */
@@ -260,7 +263,7 @@ public class GameWorld extends Observable implements IGameWorld {
 				if (x instanceof PlayerShip) {
 					ps = (PlayerShip) x;
 					if (ps.getMissileCount() > 0) {
-						Missile msl = new Missile(ps.getLocation(), ps.getSpeed(), ps.getLauncherDirection(), pship);
+						Missile msl = new Missile(ps.getLocation(), ps.getSpeed(), ps.getLauncherDirection(), pship, 6);
 						ps.decrementMissileCount();
 						gameObj.add(msl);
 						shipFireMissile.play();
@@ -291,7 +294,7 @@ public class GameWorld extends Observable implements IGameWorld {
 				if (x instanceof NonPlayerShip) {
 					nps = (NonPlayerShip) x;
 					if (nps.getMissileCount() > 0) {
-						Missile msl = new Missile(nps.getLocation(), nps.getSpeed(), nps.getDirection(), false);
+						Missile msl = new Missile(nps.getLocation(), nps.getSpeed(), nps.getDirection(), false, 6);
 						nps.setMissileCount(nps.getMissileCount() - 1);
 						gameObj.add(msl);
 						shipFireMissile.play();
@@ -691,6 +694,7 @@ public class GameWorld extends Observable implements IGameWorld {
 			GameObject o = it.getNext();
 			gameObj.remove(o);
 		}
+		checkCollisions();
 		incrementGameclock();
 		//System.out.println("Clock has ticked");
 		//System.out.println("MoveableObjects has moved");
@@ -806,5 +810,50 @@ public class GameWorld extends Observable implements IGameWorld {
 	public void setGameHeight(int height) { gameHeight = height; }
 	public static double getGameHeight() {return gameHeight;}
 	public static double getGameWidth() {return gameWidth;}
+	
+	private void checkCollisions() {
+		IIterator it = gameObj.getIterator();
+		
+		while (it.hasNext()) {
+			GameObject x = it.getNext();
+			if (x instanceof ICollider) {
+				ICollider collObj = (ICollider) x;
+				
+				IIterator other = gameObj.getIterator();
+				while (other.hasNext()) {
+					GameObject otherObj = other.getNext();
+					if(otherObj instanceof ICollider && !(x.equals(otherObj))) {
+						ICollider otherCollObj = (ICollider) otherObj;
+						if(collObj.collidesWith (otherCollObj)) {
+							collObj.handleCollision(otherCollObj);
+						}
+					}
+				}
+			}
+		}
+		deleteCollisions();
+	}
+  public void deleteCollisions() {
+	  IIterator flagRemoval = gameObj.getIterator();
+		
+		while(flagRemoval.hasNext())
+		{
+			GameObject obj = flagRemoval.getNext();
+			if (obj instanceof ICollider && ((ICollider)obj).getRemove())
+			{
+				deletes.add(obj);
+				
+				
+					}
+					
+				}
+		IIterator it = deletes.getIterator();
+		while (it.hasNext()) {
+			GameObject o = it.getNext();
+			gameObj.remove(o);
+			}
+  }	
+	  
+  }
 			 
-}
+

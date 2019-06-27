@@ -19,6 +19,7 @@ public class GameButton extends Button{
 		this.getAllStyles().setPadding(BOTTOM, 5);
 		this.getAllStyles().setBorder(Border.createLineBorder(1,
 				ColorUtil.BLACK));
+		this.setFocusable(false);
 		
 	}
 

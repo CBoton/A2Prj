@@ -10,9 +10,11 @@ import com.codename1.ui.geom.Point;
  */
 @SuppressWarnings("unused")
 
-public class SpaceStation extends FixedObject implements IDrawable{
+public class SpaceStation extends FixedObject implements IDrawable, ICollider{
 	private int blinkRate;
 	private boolean lightOn;
+	private int size = 16;
+	private boolean setRemove = false;
 	
 	/**
 	 * Instantiates a SpaceStation with super's ID and adds random blinkRate of light
@@ -67,5 +69,45 @@ public class SpaceStation extends FixedObject implements IDrawable{
 		else {
 			g.drawPolygon(xpoints, ypoints, npoints);
 		}
+	}
+	@Override
+	public boolean collidesWith(ICollider otherObj)  {
+		
+		boolean result = false;
+		double thisX = this.getLocation().getX();
+		double thisY = this.getLocation().getY();
+		
+		double thatX = ((GameObject)otherObj).getLocation().getX();
+		double thatY = ((GameObject)otherObj).getLocation().getY();
+		
+		double dsqr = ((thisX - thatX)*(thisX - thatX))  + ((thisY - thatY)*(thisY - thatY));
+		
+		
+		int rad1= this.getSize() / 2;
+		int rad2= ((GameObject)otherObj).getSize() / 2;
+		
+		int radSqr= ((rad1+rad2)*(rad1+rad2));
+		
+		if (dsqr <= radSqr) { result = true ; }
+		
+		return result;
+	}
+	@Override
+	public void handleCollision(ICollider otherObj) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void setRemove() {
+		setRemove = true;
+		
+	}
+	@Override
+	public int getSize() {
+		return size;
+	}
+	@Override
+	public boolean getRemove() {
+		return setRemove;
 	}
 }
