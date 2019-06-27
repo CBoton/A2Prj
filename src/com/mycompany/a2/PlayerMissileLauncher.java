@@ -11,7 +11,7 @@ import com.codename1.ui.geom.Point2D;
  * speed and direction determined by Player/NonPlayerShip.
  */
 
-public class PlayerMissileLauncher extends MissileLauncher implements ISteer, IDrawable {
+public class PlayerMissileLauncher extends MissileLauncher implements ISteer, IDrawable{
 	/**
 	 * @param location location of PlayerShip (passed from method call in GameWorld)
 	 * @param speed speed of PlayerShip (passed from method call in GameWorld)
@@ -46,7 +46,10 @@ public class PlayerMissileLauncher extends MissileLauncher implements ISteer, ID
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
+		double newDir = Math.toRadians(getDirection());
+		double newX2 = Math.cos(newDir);
+		double newY2 = Math.sin(newDir);
 		g.setColor(ColorUtil.BLACK);
-		g.drawLine(x, y, x+10, y+10);
+		g.drawLine(x, y, (int)(x+(75*newX2)), (int)(y+(75 * newY2)));
 	}
 }

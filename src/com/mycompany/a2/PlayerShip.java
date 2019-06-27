@@ -34,11 +34,12 @@ public class PlayerShip extends Ship implements ISteer, IDrawable	{
 		if(this.getSpeed() == 20) {
 			setSpeed(20);
 			System.out.println("Error: Ship is at full speed");
-		}
-		else
-			setSpeed(this.getSpeed() + 1);
-		System.out.println("PlayerShip is going faster");
 			
+		}
+		else {
+			setSpeed(this.getSpeed() + 1);
+		}
+		playerLauncher.setSpeed(this.getSpeed());	
 	}
 	/**
 	 * Decreases speed of Ship by 1
@@ -143,7 +144,8 @@ public class PlayerShip extends Ship implements ISteer, IDrawable	{
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
 		g.setColor(this.getColor());
-		g.fillArc(x, y, 20, 20, 0, 360);
+		g.fillArc(x - 25, y - 25, 50, 50, 0, 360);
+		playerLauncher.setLocation(this.getLocation());
 		playerLauncher.draw(g, pCmpRelPrnt);
 	}
 }

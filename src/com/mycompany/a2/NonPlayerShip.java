@@ -52,7 +52,9 @@ public class NonPlayerShip extends Ship implements IDrawable{
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
 		g.setColor(ColorUtil.MAGENTA);
-		g.fillArc(x, y, this.getSize(), this.getSize(), 0, 360);
+		g.fillArc(x - (this.getSize()/2), y-(this.getSize()/2), this.getSize(), this.getSize(), 0, 360);
+		missileLauncher.setLocation(this.getLocation());
+		missileLauncher.draw(g, pCmpRelPrnt);
 	}
 
 }

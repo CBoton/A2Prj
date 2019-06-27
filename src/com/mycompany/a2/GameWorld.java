@@ -668,8 +668,8 @@ public class GameWorld extends Observable implements IGameWorld {
 			}
 			if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0) {
 				deletes.add(x);
-				if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0 && ((Missile) x).getMissileType() == true) {misObj--; System.out.println("mis died" + misObj);}
-				if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0 && ((Missile) x).getMissileType() == false) {npsMis--;System.out.println("mis died" + npsMis);}
+				if (x instanceof Missile && ((Missile) x).getMissileType() == true) {misObj--; }
+				if (x instanceof Missile && ((Missile) x).getMissileType() == false) {npsMis--;}
 
 			}
 			if (x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
