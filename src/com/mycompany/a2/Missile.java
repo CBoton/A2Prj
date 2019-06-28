@@ -27,7 +27,7 @@ public class Missile extends MoveableObject	implements IDrawable, ICollider{
 	 * @param ps true = PlayerShip, false = NonPlayerShip
 	 */
 	public Missile(Point2D location, int speed, int dir, boolean ps, int size )    {
-        final int MAX_FUEL = 15;
+        final int MAX_FUEL = 50;
         this.fuelLevel = MAX_FUEL;
         this.setLocation(location);
         this.setColor(ColorUtil.MAGENTA);

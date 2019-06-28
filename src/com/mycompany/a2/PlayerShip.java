@@ -33,8 +33,8 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 	 * Increases speed of Ship by 1
 	 */
 	public void increaseSpeed()	{
-		if(this.getSpeed() == 20) {
-			setSpeed(20);
+		if(this.getSpeed() == 40) {
+			setSpeed(40);
 			System.out.println("Error: Ship is at full speed");
 			
 		}
@@ -67,23 +67,23 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 	 * Turns ship left 2 degrees
 	 */
 	public void steerLeft() {
-		if(this.getDirection() >= 2) 
+		if(this.getDirection() >= 10) 
 		{
-			this.setDirection(getDirection() - 2);
-			if(getLauncherDirection() >= 2) 
+			this.setDirection(getDirection() - 10);
+			if(getLauncherDirection() >= 10) 
 			{
-				playerLauncher.setDirection(getLauncherDirection() - 2);
+				playerLauncher.setDirection(getLauncherDirection() - 10);
 			}
-			else {playerLauncher.setDirection(getLauncherDirection() + 358);}
+			else {playerLauncher.setDirection(getLauncherDirection() + 350);}
 		}
 		else 
 		{
-			this.setDirection(this.getDirection() + 358);
-			if(getLauncherDirection() >= 2) 
+			this.setDirection(this.getDirection() + 350);
+			if(getLauncherDirection() >= 10) 
 			{
-				playerLauncher.setDirection(getLauncherDirection() - 2);
+				playerLauncher.setDirection(getLauncherDirection() - 10);
 			}
-				else {playerLauncher.setDirection(getLauncherDirection() + 358);}
+				else {playerLauncher.setDirection(getLauncherDirection() + 350);}
 		}
 		System.out.println("The PlayerShip has turned left");
 	}
@@ -91,22 +91,22 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 	 * Turns ship right 2 degrees
 	 */
 	public void steerRight() {
-		if (this.getDirection() <= 357) 
+		if (this.getDirection() <= 349) 
 		{
-			this.setDirection(getDirection() + 2);
-			if (getLauncherDirection() <= 357) 
+			this.setDirection(getDirection() + 10);
+			if (getLauncherDirection() <= 349) 
 			{
-				playerLauncher.setDirection(getLauncherDirection() + 2);
+				playerLauncher.setDirection(getLauncherDirection() + 10);
 			}
-			else {playerLauncher.setDirection(getLauncherDirection() - 358);}
+			else {playerLauncher.setDirection(getLauncherDirection() - 350);}
 		}
 		else {
-			this.setDirection(this.getDirection() - 358);
-			if (getLauncherDirection() <= 357) 
+			this.setDirection(this.getDirection() - 350);
+			if (getLauncherDirection() <= 349) 
 			{
-				playerLauncher.setDirection(getLauncherDirection() + 2);
+				playerLauncher.setDirection(getLauncherDirection() + 10);
 			}
-			else {playerLauncher.setDirection(getLauncherDirection() - 358);}
+			else {playerLauncher.setDirection(getLauncherDirection() - 350);}
 		}
 		System.out.println("The PlayerShip has turned right");
 	}
