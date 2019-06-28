@@ -17,6 +17,7 @@ public class Missile extends MoveableObject	implements IDrawable, ICollider{
 	private boolean playerShip;
 	private int size;
 	private boolean setRemove = false;
+	private int points = 0;
 	
 	/**
 	 * Constructor creates a Missile.
@@ -131,11 +132,13 @@ public class Missile extends MoveableObject	implements IDrawable, ICollider{
 				this.setRemove();
 				otherObj.setRemove();
 				
+				
 			}
 			else if (otherObj instanceof NonPlayerShip)
 			{
 				this.setRemove();
 				otherObj.setRemove();
+				setPoints(20);
 				
 			}
 		}
@@ -157,8 +160,13 @@ public class Missile extends MoveableObject	implements IDrawable, ICollider{
 		return setRemove;
 	}
 
+	public void setPoints(int x) {
+		points = x;
+	}
 
-	
+	public int getPoints() {
+		return points;
+	}
 	
 		
 	

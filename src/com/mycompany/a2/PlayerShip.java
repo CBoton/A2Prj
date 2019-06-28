@@ -15,6 +15,7 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 	private double h = GameWorld.getGameHeight()/2;
 	private double w = GameWorld.getGameWidth()/2;
 	private boolean setRemove = false;
+	private boolean psAlive = true;
 	/**
 	 * Constructs a PlayerShip
 	 */
@@ -178,12 +179,19 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 			{
 				this.setRemove();
 				otherObj.setRemove();
+				setDead();
 				
 			}
 			else if (otherObj instanceof NonPlayerShip)
 			{
 				this.setRemove();
 				otherObj.setRemove();
+				setDead();
+			}
+			else if( otherObj instanceof Missile && ((Missile) otherObj).getMissileType()==false) {
+				this.setRemove();
+				otherObj.setRemove();
+				setDead();
 			}
 			
 			else if (otherObj instanceof SpaceStation)
@@ -209,5 +217,12 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 	@Override
 	public boolean getRemove() {
 		return setRemove;
+	}
+	
+	public void setDead() {
+		psAlive = false;
+	}
+	public boolean getDead() {
+		return psAlive;
 	}
 }

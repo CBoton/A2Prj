@@ -16,6 +16,7 @@ public class Asteroid extends MoveableObject implements IDrawable, ICollider{
 	 */
 	private int size;
 	private boolean setRemove = false;
+	private int points = 0;
 	
 	/**
 	 * Default Asteroid constructor, gets location, speed, and direction from parent
@@ -72,8 +73,8 @@ public class Asteroid extends MoveableObject implements IDrawable, ICollider{
 		double dsqr = ((thisX - thatX)*(thisX - thatX))  + ((thisY - thatY)*(thisY - thatY));
 		
 		
-		int rad1= this.getSize() / 2;
-		int rad2= ((GameObject)otherObj).getSize() / 2;
+		int rad1= this.getSize() ;
+		int rad2= ((GameObject)otherObj).getSize() ;
 		
 		int radSqr= ((rad1+rad2)*(rad1+rad2));
 		
@@ -100,10 +101,11 @@ public class Asteroid extends MoveableObject implements IDrawable, ICollider{
 			this.setRemove();
 			otherObj.setRemove();
 		}
-		else if (otherObj instanceof Missile)
+		else if (otherObj instanceof Missile && ((Missile) otherObj).getMissileType() == true)
 		{
 			this.setRemove();
 			otherObj.setRemove();
+			setPoints(10);
 		}
 	}
 	@Override
@@ -115,5 +117,8 @@ public class Asteroid extends MoveableObject implements IDrawable, ICollider{
 	public boolean getRemove() {
 		return setRemove;
 	}
+	
+	public void setPoints(int x) {points += x;}
+	public int getPoints() {return points;}
 	
 }

@@ -822,7 +822,7 @@ public class GameWorld extends Observable implements IGameWorld {
 				IIterator other = gameObj.getIterator();
 				while (other.hasNext()) {
 					GameObject otherObj = other.getNext();
-					if(otherObj instanceof ICollider && !(x.equals(otherObj))) {
+					if(otherObj instanceof ICollider && (x != (otherObj))) {
 						ICollider otherCollObj = (ICollider) otherObj;
 						if(collObj.collidesWith (otherCollObj)) {
 							collObj.handleCollision(otherCollObj);
@@ -834,19 +834,24 @@ public class GameWorld extends Observable implements IGameWorld {
 		deleteCollisions();
 	}
   public void deleteCollisions() {
-	  IIterator flagRemoval = gameObj.getIterator();
+	  IIterator removeStuff = gameObj.getIterator();
 		
-		while(flagRemoval.hasNext())
+		while(removeStuff.hasNext())
 		{
-			GameObject obj = flagRemoval.getNext();
+			GameObject obj = removeStuff.getNext();
 			if (obj instanceof ICollider && ((ICollider)obj).getRemove())
-			{
+				{
 				deletes.add(obj);
-				
-				
-					}
-					
 				}
+			if (obj instanceof Missile && ((Missile) obj).getMissileType()==true) {
+				setPlayerScore(((Missile) obj).getPoints());
+				misObj --;
+			}
+			if (obj instanceof PlayerShip) {
+				pship = ((PlayerShip) obj).getDead();
+			}
+					
+		}
 		IIterator it = deletes.getIterator();
 		while (it.hasNext()) {
 			GameObject o = it.getNext();

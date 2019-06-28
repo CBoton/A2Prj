@@ -9,10 +9,11 @@ import com.codename1.ui.geom.Point;
  *
  */
 
-public class NonPlayerShip extends Ship implements IDrawable{
+public class NonPlayerShip extends Ship implements IDrawable, ICollider{
 
 	private int size;
 	private MissileLauncher missileLauncher;
+	private boolean setRemove = false;
 	
 	/**
      * Instantiates a NonPLayerShip with random location, direction, and speed from super class.
@@ -55,6 +56,55 @@ public class NonPlayerShip extends Ship implements IDrawable{
 		g.fillArc(x - (this.getSize()/2), y-(this.getSize()/2), this.getSize(), this.getSize(), 0, 360);
 		missileLauncher.setLocation(this.getLocation());
 		missileLauncher.draw(g, pCmpRelPrnt);
+	}
+	@Override
+	public boolean collidesWith(ICollider otherObj) {
+		boolean collision = false;
+		double thisX = this.getLocation().getX();
+		double thisY = this.getLocation().getY();
+		
+		double thatX = ((GameObject)otherObj).getLocation().getX();
+		double thatY = ((GameObject)otherObj).getLocation().getY();
+		
+		double dsqr = ((thisX - thatX)*(thisX - thatX))  + ((thisY - thatY)*(thisY - thatY));
+		
+		
+		int rad1= this.getSize() / 2;
+		int rad2= ((GameObject)otherObj).getSize() / 2;
+		
+		int radSqr= ((rad1+rad2)*(rad1+rad2));
+		
+		if (dsqr <= radSqr) { collision = true ; }
+		
+		return collision;
+		}
+		
+	@Override
+	public void handleCollision(ICollider otherObj) {
+		if (otherObj instanceof Asteroid)
+		{
+			this.setRemove();
+			otherObj.setRemove();
+			
+		}
+		else if (otherObj instanceof PlayerShip)
+		{
+			this.setRemove();
+			otherObj.setRemove();
+		}
+		else if(otherObj instanceof Missile && ((Missile) otherObj).getMissileType()==true) {
+			this.setRemove();
+		}
+		
+	}
+	@Override
+	public void setRemove() {
+		setRemove = true;
+		
+	}
+	@Override
+	public boolean getRemove() {
+		return setRemove;
 	}
 
 }
