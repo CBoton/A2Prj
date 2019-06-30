@@ -100,6 +100,11 @@ public class GameWorld extends Observable implements IGameWorld {
 		playerScore = 0;
 		clock = 0;
 		bg.play();
+		pship = false;
+		astObj = 0;
+		misObj = 0;
+		npsMis = 0;
+		station = false;
 	}
 
 	/**
@@ -452,10 +457,10 @@ public class GameWorld extends Observable implements IGameWorld {
 			psHit();
 			pship = false;
 			System.out.println("NonPlayerShip missile hit PlayerShip");
-			if (playerLives == 0) {
+			if (playerLives == 1) {
 				System.out.println("GameOver");
 				printDisplay();
-				quit();
+				gameOver();
 			} else {
 				decrementPlayerLives(1);
 			}
@@ -471,16 +476,17 @@ public class GameWorld extends Observable implements IGameWorld {
 			System.out.println("Error: There is no ship on the map");
 		} else if (astObj == 0) {
 			System.out.println("Error: There is no Asteroid on the map");
-		} else {
+		} 
+		else {
 			psHit();
 			pship = false;
 			asteroidHit();
 			astObj--;
 			System.out.println("PlayerShip collided with an Asteroid");
-			if (playerLives == 0) {
+			if (playerLives == 1) {
 				System.out.println("GameOver");
 				printDisplay();
-				quit();
+				gameOver();
 			} else {
 				decrementPlayerLives(1);
 			}
@@ -503,7 +509,7 @@ public class GameWorld extends Observable implements IGameWorld {
 			npsHit();
 			npship--;
 			System.out.println("PlayerShip collided with a NonPlayerShip");
-			if (playerLives == 0) {
+			if (playerLives == 1) {
 				System.out.println("GameOver");
 				printDisplay();
 				quit();
@@ -688,6 +694,7 @@ public class GameWorld extends Observable implements IGameWorld {
 				}
 				else {ss.switchLightOff();  }
 			}
+			if (x instanceof NonPlayerShip && getElapsedTime() % 50 == 0) {npsFireMissile();}
 		}
 		IIterator it = deletes.getIterator();
 		while (it.hasNext()) {
@@ -742,19 +749,6 @@ public class GameWorld extends Observable implements IGameWorld {
 		}
 	}
 
-	public void missileOof() {
-		IIterator iterator = getIterator();
-		while (iterator.hasNext()) {
-			GameObject x = iterator.getNext();
-			if (x instanceof Missile && ((Missile) x).getFuelLevel() == 0) {
-				deletes.add(x);
-			}
-			else if (x instanceof Missile && ((Missile) x).getFuelLevel() > 0) {
-				((Missile) x).decrementFuelLevel();
-			}
-			
-		}
-	}
 
 	/**
 	 * Cycle through collection to find first instance of PlayerShip missile and
@@ -797,6 +791,31 @@ public class GameWorld extends Observable implements IGameWorld {
 			Display.getInstance().exitApplication();
 		}
 	}
+	
+	public void gameOver() {
+		quitSound.play();
+		Boolean bOk = Dialog.show("Game Over", "Do you want to play again?", "No", "Yes");
+		if (bOk) {
+			Display.getInstance().exitApplication();
+		}
+		else {startOver();}
+	}
+/**
+ * Resets game world after game over
+ */
+public void startOver() {
+	
+		IIterator iterator = getIterator();
+		while (iterator.hasNext()) {
+			GameObject x = iterator.getNext();
+			if (x instanceof GameObject) {
+				gameObj.remove(x);
+				break;
+			}
+		}
+	init();
+		
+	}
 	/**
 	 * 
 	 * @param width to set GameWorld Width
@@ -831,33 +850,22 @@ public class GameWorld extends Observable implements IGameWorld {
 				}
 			}
 		}
-		deleteCollisions();
+		//deleteCollisions();
 	}
-  public void deleteCollisions() {
-	  IIterator removeStuff = gameObj.getIterator();
-		
-		while(removeStuff.hasNext())
-		{
-			GameObject obj = removeStuff.getNext();
-			if (obj instanceof ICollider && ((ICollider)obj).getRemove())
-				{
-				deletes.add(obj);
-				}
-			if (obj instanceof Missile && ((Missile) obj).getMissileType()==true) {
-				setPlayerScore(((Missile) obj).getPoints());
-				misObj --;
-			}
-			if (obj instanceof PlayerShip) {
-				pship = ((PlayerShip) obj).getDead();
-			}
-					
-		}
-		IIterator it = deletes.getIterator();
-		while (it.hasNext()) {
-			GameObject o = it.getNext();
-			gameObj.remove(o);
-			}
-  }	
+	/*
+	 * public void deleteCollisions() { IIterator removeStuff =
+	 * gameObj.getIterator();
+	 * 
+	 * while(removeStuff.hasNext()) { GameObject obj = removeStuff.getNext(); if
+	 * (obj instanceof ICollider && ((ICollider)obj).getRemove()) {
+	 * deletes.add(obj); } if (obj instanceof Missile && ((Missile)
+	 * obj).getMissileType()==true) { setPlayerScore(((Missile) obj).getPoints());
+	 * misObj --; } if (obj instanceof PlayerShip) { pship = ((PlayerShip)
+	 * obj).getDead(); }
+	 * 
+	 * } IIterator it = deletes.getIterator(); while (it.hasNext()) { GameObject o =
+	 * it.getNext(); gameObj.remove(o); } }
+	 */
 	  
   }
 			 

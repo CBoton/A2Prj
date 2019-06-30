@@ -12,7 +12,7 @@ import com.codename1.ui.geom.Point2D;
  * speed and direction determined by Player/NonPlayerShip.
  */
 
-public class Missile extends MoveableObject	implements IDrawable, ICollider{
+public class Missile extends MoveableObject	implements IDrawable{
 	private int fuelLevel;
 	private boolean playerShip;
 	private int size;
@@ -101,72 +101,44 @@ public class Missile extends MoveableObject	implements IDrawable, ICollider{
 			
 		}
 	}
-	public boolean collidesWith(ICollider other) 
-	{
-		
-		boolean result = false;
-		double thisX = this.getLocation().getX();
-		double thisY = this.getLocation().getY();
-		
-		double thatX = ((GameObject)other).getLocation().getX();
-		double thatY = ((GameObject)other).getLocation().getY();
-		
-		double dsqr = ((thisX - thatX)*(thisX - thatX))  + ((thisY - thatY)*(thisY - thatY));
-		
-		
-		int rad1= this.getSize() / 2;
-		int rad2= ((GameObject)other).getSize() / 2;
-		
-		int radSqr= ((rad1+rad2)*(rad1+rad2));
-		
-		if (dsqr <= radSqr) { result = true ; }
-		
-		return result;
-	}
-	public void handleCollision(ICollider otherObj)
-	{
-		if (this.getMissileType() == true)
-		{
-			if (otherObj instanceof Asteroid)
-			{
-				this.setRemove();
-				otherObj.setRemove();
-				
-				
-			}
-			else if (otherObj instanceof NonPlayerShip)
-			{
-				this.setRemove();
-				otherObj.setRemove();
-				setPoints(20);
-				
-			}
-		}
-		else if (this.getMissileType() == false)
-		{
-			if (otherObj instanceof PlayerShip)
-			{
-				this.setRemove();
-				otherObj.setRemove();
-			}
-		}
-	}
-
-	public void setRemove() {
-		setRemove = true;
-	}
-	
-	public boolean getRemove() {
-		return setRemove;
-	}
-
-	public void setPoints(int x) {
-		points = x;
-	}
-
-	public int getPoints() {
-		return points;
-	}
+	/*
+	 * public boolean collidesWith(ICollider other) {
+	 * 
+	 * boolean result = false; double thisX = this.getLocation().getX(); double
+	 * thisY = this.getLocation().getY();
+	 * 
+	 * double thatX = ((GameObject)other).getLocation().getX(); double thatY =
+	 * ((GameObject)other).getLocation().getY();
+	 * 
+	 * double dsqr = ((thisX - thatX)*(thisX - thatX)) + ((thisY - thatY)*(thisY -
+	 * thatY));
+	 * 
+	 * 
+	 * int rad1= this.getSize() / 2; int rad2= ((GameObject)other).getSize() / 2;
+	 * 
+	 * int radSqr= ((rad1+rad2)*(rad1+rad2));
+	 * 
+	 * if (dsqr <= radSqr) { result = true ; }
+	 * 
+	 * return result; } public void handleCollision(ICollider otherObj) { if
+	 * (this.getMissileType() == true) { if (otherObj instanceof Asteroid) {
+	 * this.setRemove(); otherObj.setRemove();
+	 * 
+	 * 
+	 * } else if (otherObj instanceof NonPlayerShip) { this.setRemove();
+	 * otherObj.setRemove(); setPoints(20);
+	 * 
+	 * } } else if (this.getMissileType() == false) { if (otherObj instanceof
+	 * PlayerShip) { this.setRemove(); otherObj.setRemove(); } } }
+	 * 
+	 * public void setRemove() { setRemove = true; }
+	 * 
+	 * public boolean getRemove() { return setRemove; }
+	 * 
+	 * public void setPoints(int x) { points = x; }
+	 * 
+	 * public int getPoints() { return points; }
+	 */
 	
 		
 	

@@ -175,7 +175,7 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 	@Override
 	public void handleCollision(ICollider otherObj){
 		
-			if (otherObj instanceof Asteroid)
+		/*	if (otherObj instanceof Asteroid)
 			{
 				this.setRemove();
 				otherObj.setRemove();
@@ -192,9 +192,9 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 				this.setRemove();
 				otherObj.setRemove();
 				setDead();
-			}
+			}*/
 			
-			else if (otherObj instanceof SpaceStation)
+			 if (otherObj instanceof SpaceStation)
 			{
 				this.reloadMissiles();
 				

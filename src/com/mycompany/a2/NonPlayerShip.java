@@ -9,7 +9,7 @@ import com.codename1.ui.geom.Point;
  *
  */
 
-public class NonPlayerShip extends Ship implements IDrawable, ICollider{
+public class NonPlayerShip extends Ship implements IDrawable{
 
 	private int size;
 	private MissileLauncher missileLauncher;
@@ -53,58 +53,44 @@ public class NonPlayerShip extends Ship implements IDrawable, ICollider{
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
 		g.setColor(ColorUtil.MAGENTA);
-		g.fillArc(x - (this.getSize()/2), y-(this.getSize()/2), this.getSize(), this.getSize(), 0, 360);
+		g.fillRoundRect(x - (this.getSize()/2 +10), y-(this.getSize()/2), this.getSize()+20, this.getSize(), 25, 50);
+		//g.fillRoundRect(x, y, this.getSize()/2, this.getSize()/2, 0, 180);
 		missileLauncher.setLocation(this.getLocation());
 		missileLauncher.draw(g, pCmpRelPrnt);
 	}
-	@Override
-	public boolean collidesWith(ICollider otherObj) {
-		boolean collision = false;
-		double thisX = this.getLocation().getX();
-		double thisY = this.getLocation().getY();
-		
-		double thatX = ((GameObject)otherObj).getLocation().getX();
-		double thatY = ((GameObject)otherObj).getLocation().getY();
-		
-		double dsqr = ((thisX - thatX)*(thisX - thatX))  + ((thisY - thatY)*(thisY - thatY));
-		
-		
-		int rad1= this.getSize() / 2;
-		int rad2= ((GameObject)otherObj).getSize() / 2;
-		
-		int radSqr= ((rad1+rad2)*(rad1+rad2));
-		
-		if (dsqr <= radSqr) { collision = true ; }
-		
-		return collision;
-		}
-		
-	@Override
-	public void handleCollision(ICollider otherObj) {
-		if (otherObj instanceof Asteroid)
-		{
-			this.setRemove();
-			otherObj.setRemove();
-			
-		}
-		else if (otherObj instanceof PlayerShip)
-		{
-			this.setRemove();
-			otherObj.setRemove();
-		}
-		else if(otherObj instanceof Missile && ((Missile) otherObj).getMissileType()==true) {
-			this.setRemove();
-		}
-		
-	}
-	@Override
-	public void setRemove() {
-		setRemove = true;
-		
-	}
-	@Override
-	public boolean getRemove() {
-		return setRemove;
-	}
-
+	/*
+	 * @Override public boolean collidesWith(ICollider otherObj) { boolean collision
+	 * = false; double thisX = this.getLocation().getX(); double thisY =
+	 * this.getLocation().getY();
+	 * 
+	 * double thatX = ((GameObject)otherObj).getLocation().getX(); double thatY =
+	 * ((GameObject)otherObj).getLocation().getY();
+	 * 
+	 * double dsqr = ((thisX - thatX)*(thisX - thatX)) + ((thisY - thatY)*(thisY -
+	 * thatY));
+	 * 
+	 * 
+	 * int rad1= this.getSize() / 2; int rad2= ((GameObject)otherObj).getSize() / 2;
+	 * 
+	 * int radSqr= ((rad1+rad2)*(rad1+rad2));
+	 * 
+	 * if (dsqr <= radSqr) { collision = true ; }
+	 * 
+	 * return collision; }
+	 * 
+	 * @Override public void handleCollision(ICollider otherObj) { if (otherObj
+	 * instanceof Asteroid) { this.setRemove(); otherObj.setRemove();
+	 * 
+	 * } else if (otherObj instanceof PlayerShip) { this.setRemove();
+	 * otherObj.setRemove(); } else if(otherObj instanceof Missile && ((Missile)
+	 * otherObj).getMissileType()==true) { this.setRemove(); }
+	 * 
+	 * }
+	 * 
+	 * @Override public void setRemove() { setRemove = true;
+	 * 
+	 * }
+	 * 
+	 * @Override public boolean getRemove() { return setRemove; }
+	 */
 }
