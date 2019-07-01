@@ -72,7 +72,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	/**
 	 * Tracks if sound is On
 	 */
-	private boolean soundOn = false;
+	private boolean soundOn = true;
 	private static double gameWidth = getGameWidth();
 	private static double gameHeight = getGameHeight();
 	BgSound bg = new BgSound("darren-curtis-pay-the-reaper.mp3");
@@ -166,7 +166,7 @@ public class GameWorld extends Observable implements IGameWorld {
 			return "ON";
 		else
 			return "OFF";
-	}
+		}
 
 	/**
 	 * @return total playerLives remaining in game
@@ -190,11 +190,11 @@ public class GameWorld extends Observable implements IGameWorld {
 	 */
 	public void setSound() {
 		if(soundOn) {
-			soundOn = !soundOn;
+			soundOn = false;
 			bg.pause();
 		}
 		else if (!soundOn){
-			soundOn = !soundOn;
+			soundOn = true;
 			bg.play();
 		}
 		
