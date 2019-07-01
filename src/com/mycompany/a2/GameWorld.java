@@ -78,10 +78,11 @@ public class GameWorld extends Observable implements IGameWorld {
 	private boolean soundOn = false;
 	private static double gameWidth = getGameWidth();
 	private static double gameHeight = getGameHeight();
-	Sound turnLauncher = new Sound("tagrunt.wav");
 	BgSound bg = new BgSound("darren-curtis-pay-the-reaper.mp3");
 	Sound shipFireMissile = new Sound("asteroids-ship-shoot.wav"); 
 	Sound quitSound = new Sound("priceiswrong.mp3");
+	Sound turnLLeft = new Sound("chngnd1a.wav");
+	Sound turnLRight = new Sound("chngnu1a.wav");
 
 	// METHODS
 	/**
@@ -191,11 +192,18 @@ public class GameWorld extends Observable implements IGameWorld {
 	 * Change each time called
 	 */
 	public void setSound() {
-		soundOn = !soundOn;
+		if(soundOn) {
+			soundOn = !soundOn;
+			bg.pause();
+		}
+		else if (!soundOn){
+			soundOn = !soundOn;
+			bg.play();
+		}
+		
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
-
 	/**
 	 * returns bool soundOn
 	 */

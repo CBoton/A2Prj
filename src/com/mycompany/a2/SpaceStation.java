@@ -98,7 +98,10 @@ public class SpaceStation extends FixedObject implements IDrawable, ICollider{
 	@Override
 	public void handleCollision(ICollider otherObj) {
 		// TODO Auto-generated method stub
-		
+		Sound reloadShip = new Sound("reload.wav");
+		Sound reloadGrunt = new Sound("tagrunt.wav");
+		reloadShip.play();
+		reloadGrunt.play();
 	}
 	@Override
 	public void setRemove() {
