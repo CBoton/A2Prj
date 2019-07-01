@@ -56,6 +56,9 @@ public class SpaceStation extends FixedObject implements IDrawable, ICollider{
 		String thisOne = " rate=" + blinkRate;
 		return "Station: " + topOne + thisOne; 
 	}
+	/**
+	 * Draws a Space Station
+	 */
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());

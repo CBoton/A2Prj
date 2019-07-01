@@ -792,6 +792,9 @@ public class GameWorld extends Observable implements IGameWorld {
 		}
 	}
 	
+	/**
+	 * Ask player if they want to start over after running out of lives
+	 */
 	public void gameOver() {
 		quitSound.play();
 		Boolean bOk = Dialog.show("Game Over", "Do you want to play again?", "No", "Yes");

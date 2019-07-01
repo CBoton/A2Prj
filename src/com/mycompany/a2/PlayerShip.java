@@ -172,6 +172,10 @@ public class PlayerShip extends Ship implements ISteer, IDrawable, ICollider	{
 		
 		return collision;
 	}
+	
+	/**
+	 * reloads PS missiles if it comes in contact with Space station
+	 */
 	@Override
 	public void handleCollision(ICollider otherObj){
 		

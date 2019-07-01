@@ -54,6 +54,9 @@ public class Asteroid extends MoveableObject implements IDrawable{
 		return "Asteroid: " + topOne + thisOne;
 	}
 	
+	/**
+	 * Draws an astreoid
+	 */
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());

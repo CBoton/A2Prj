@@ -78,6 +78,9 @@ public class Missile extends MoveableObject	implements IDrawable{
 		
 		return topOne + thisOne;
 	}
+	/**
+	 *Draws a Misssile
+	 */
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());

@@ -49,6 +49,9 @@ public class NonPlayerShip extends Ship implements IDrawable{
 		String thisOne = " size=" + getSize();
 		return "NonPlayerShip: " + topOne + thisOne;
 	}
+	/**
+	 *draw NonPlayerSHip
+	 */
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoord());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoord());
