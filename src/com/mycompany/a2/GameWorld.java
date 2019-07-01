@@ -56,10 +56,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	 * Tracks number of NonPlayerShip's Missile objects in the world;
 	 */
 	private int npsMis = 0;
-	/**
-	 * Tracks number of Playership Missile objects in the world;
-	 */
-	private int numPSMissiles = 0;
+	
 	/**
 	 * Tracks if a spaceStation is in the world
 	 */
@@ -379,7 +376,7 @@ public class GameWorld extends Observable implements IGameWorld {
 				GameObject x = theColl.getNext();
 				if (x instanceof PlayerShip) {
 					ps = (PlayerShip) x;
-			        turnLauncher.play();
+			        turnLRight.play();
 					ps.revolveLauncher();
 				}
 			}
@@ -401,7 +398,7 @@ public class GameWorld extends Observable implements IGameWorld {
 				GameObject x = theColl.getNext();
 				if (x instanceof PlayerShip) {
 					ps = (PlayerShip) x;
-			        turnLauncher.play();
+			        turnLLeft.play();
 					ps.revolveLauncherLeft();
 				}
 			}
@@ -816,14 +813,9 @@ public class GameWorld extends Observable implements IGameWorld {
  */
 public void startOver() {
 	
-		IIterator iterator = getIterator();
-		while (iterator.hasNext()) {
-			GameObject x = iterator.getNext();
-			if (x instanceof GameObject) {
-				gameObj.remove(x);
-				break;
-			}
-		}
+		gameObj = new GameObjectCollection();
+			
+		
 	init();
 		
 	}
